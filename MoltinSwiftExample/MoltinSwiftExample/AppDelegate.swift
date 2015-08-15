@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Moltin
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

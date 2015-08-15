@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3BC403BAB7377BF293EA981B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD804E98453A71DB9DE4D998 /* libPods.a */; };
 		BAB1D4021B7F6D9E000F07A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1D4011B7F6D9E000F07A1 /* AppDelegate.swift */; };
 		BAB1D4041B7F6D9E000F07A1 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1D4031B7F6D9E000F07A1 /* FirstViewController.swift */; };
 		BAB1D4061B7F6D9E000F07A1 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1D4051B7F6D9E000F07A1 /* SecondViewController.swift */; };
@@ -27,6 +28,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		325A32BB88BC1E472AE5CE6B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		71230C33033D5E156D2CE96B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		BAB1D3FC1B7F6D9E000F07A1 /* MoltinSwiftExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoltinSwiftExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAB1D4001B7F6D9E000F07A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BAB1D4011B7F6D9E000F07A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -38,6 +41,8 @@
 		BAB1D4131B7F6D9E000F07A1 /* MoltinSwiftExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoltinSwiftExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAB1D4181B7F6D9E000F07A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BAB1D4191B7F6D9E000F07A1 /* MoltinSwiftExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoltinSwiftExampleTests.swift; sourceTree = "<group>"; };
+		BAB1D4231B7F6F5E000F07A1 /* Project-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Project-Bridging-Header.h"; sourceTree = "<group>"; };
+		FD804E98453A71DB9DE4D998 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BC403BAB7377BF293EA981B /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,12 +64,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		96053FF4F5A60AD2C5B8E7CA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				71230C33033D5E156D2CE96B /* Pods.debug.xcconfig */,
+				325A32BB88BC1E472AE5CE6B /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		BAB1D3F31B7F6D9E000F07A1 = {
 			isa = PBXGroup;
 			children = (
 				BAB1D3FE1B7F6D9E000F07A1 /* MoltinSwiftExample */,
 				BAB1D4161B7F6D9E000F07A1 /* MoltinSwiftExampleTests */,
 				BAB1D3FD1B7F6D9E000F07A1 /* Products */,
+				96053FF4F5A60AD2C5B8E7CA /* Pods */,
+				F2483C18BCFF6CAB5D2153D1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,6 +103,7 @@
 				BAB1D40A1B7F6D9E000F07A1 /* Images.xcassets */,
 				BAB1D40C1B7F6D9E000F07A1 /* LaunchScreen.xib */,
 				BAB1D3FF1B7F6D9E000F07A1 /* Supporting Files */,
+				BAB1D4231B7F6F5E000F07A1 /* Project-Bridging-Header.h */,
 			);
 			path = MoltinSwiftExample;
 			sourceTree = "<group>";
@@ -115,6 +133,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		F2483C18BCFF6CAB5D2153D1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FD804E98453A71DB9DE4D998 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -122,9 +148,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BAB1D41D1B7F6D9E000F07A1 /* Build configuration list for PBXNativeTarget "MoltinSwiftExample" */;
 			buildPhases = (
+				65C3C8B8ABC02B2F4A4D7086 /* Check Pods Manifest.lock */,
 				BAB1D3F81B7F6D9E000F07A1 /* Sources */,
 				BAB1D3F91B7F6D9E000F07A1 /* Frameworks */,
 				BAB1D3FA1B7F6D9E000F07A1 /* Resources */,
+				984084574162899564F77DEF /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -209,6 +237,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		65C3C8B8ABC02B2F4A4D7086 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		984084574162899564F77DEF /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		BAB1D3F81B7F6D9E000F07A1 /* Sources */ = {
@@ -342,21 +403,25 @@
 		};
 		BAB1D41E1B7F6D9E000F07A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71230C33033D5E156D2CE96B /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MoltinSwiftExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MoltinSwiftExample/Project-Bridging-Header.h";
 			};
 			name = Debug;
 		};
 		BAB1D41F1B7F6D9E000F07A1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 325A32BB88BC1E472AE5CE6B /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MoltinSwiftExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "MoltinSwiftExample/Project-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -413,6 +478,7 @@
 				BAB1D41F1B7F6D9E000F07A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BAB1D4201B7F6D9E000F07A1 /* Build configuration list for PBXNativeTarget "MoltinSwiftExampleTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +487,7 @@
 				BAB1D4221B7F6D9E000F07A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
