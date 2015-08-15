@@ -3,7 +3,7 @@
 //  MoltinSwiftExample
 //
 //  Created by Dylan McKee on 15/08/2015.
-//  Copyright (c) 2015 moltin. All rights reserved.
+//  Copyright (c) 2015 Moltin. All rights reserved.
 //
 
 import UIKit

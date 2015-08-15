@@ -14,18 +14,7 @@
 		BAB1D4091B7F6D9E000F07A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAB1D4071B7F6D9E000F07A1 /* Main.storyboard */; };
 		BAB1D40B1B7F6D9E000F07A1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BAB1D40A1B7F6D9E000F07A1 /* Images.xcassets */; };
 		BAB1D40E1B7F6D9E000F07A1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAB1D40C1B7F6D9E000F07A1 /* LaunchScreen.xib */; };
-		BAB1D41A1B7F6D9E000F07A1 /* MoltinSwiftExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1D4191B7F6D9E000F07A1 /* MoltinSwiftExampleTests.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		BAB1D4141B7F6D9E000F07A1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BAB1D3F41B7F6D9E000F07A1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = BAB1D3FB1B7F6D9E000F07A1;
-			remoteInfo = MoltinSwiftExample;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		325A32BB88BC1E472AE5CE6B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -38,9 +27,6 @@
 		BAB1D4081B7F6D9E000F07A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BAB1D40A1B7F6D9E000F07A1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BAB1D40D1B7F6D9E000F07A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		BAB1D4131B7F6D9E000F07A1 /* MoltinSwiftExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MoltinSwiftExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		BAB1D4181B7F6D9E000F07A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BAB1D4191B7F6D9E000F07A1 /* MoltinSwiftExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoltinSwiftExampleTests.swift; sourceTree = "<group>"; };
 		BAB1D4231B7F6F5E000F07A1 /* Project-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Project-Bridging-Header.h"; sourceTree = "<group>"; };
 		FD804E98453A71DB9DE4D998 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -51,13 +37,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3BC403BAB7377BF293EA981B /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BAB1D4101B7F6D9E000F07A1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,7 +56,6 @@
 			isa = PBXGroup;
 			children = (
 				BAB1D3FE1B7F6D9E000F07A1 /* MoltinSwiftExample */,
-				BAB1D4161B7F6D9E000F07A1 /* MoltinSwiftExampleTests */,
 				BAB1D3FD1B7F6D9E000F07A1 /* Products */,
 				96053FF4F5A60AD2C5B8E7CA /* Pods */,
 				F2483C18BCFF6CAB5D2153D1 /* Frameworks */,
@@ -88,7 +66,6 @@
 			isa = PBXGroup;
 			children = (
 				BAB1D3FC1B7F6D9E000F07A1 /* MoltinSwiftExample.app */,
-				BAB1D4131B7F6D9E000F07A1 /* MoltinSwiftExampleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -112,23 +89,6 @@
 			isa = PBXGroup;
 			children = (
 				BAB1D4001B7F6D9E000F07A1 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		BAB1D4161B7F6D9E000F07A1 /* MoltinSwiftExampleTests */ = {
-			isa = PBXGroup;
-			children = (
-				BAB1D4191B7F6D9E000F07A1 /* MoltinSwiftExampleTests.swift */,
-				BAB1D4171B7F6D9E000F07A1 /* Supporting Files */,
-			);
-			path = MoltinSwiftExampleTests;
-			sourceTree = "<group>";
-		};
-		BAB1D4171B7F6D9E000F07A1 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				BAB1D4181B7F6D9E000F07A1 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -163,24 +123,6 @@
 			productReference = BAB1D3FC1B7F6D9E000F07A1 /* MoltinSwiftExample.app */;
 			productType = "com.apple.product-type.application";
 		};
-		BAB1D4121B7F6D9E000F07A1 /* MoltinSwiftExampleTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = BAB1D4201B7F6D9E000F07A1 /* Build configuration list for PBXNativeTarget "MoltinSwiftExampleTests" */;
-			buildPhases = (
-				BAB1D40F1B7F6D9E000F07A1 /* Sources */,
-				BAB1D4101B7F6D9E000F07A1 /* Frameworks */,
-				BAB1D4111B7F6D9E000F07A1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				BAB1D4151B7F6D9E000F07A1 /* PBXTargetDependency */,
-			);
-			name = MoltinSwiftExampleTests;
-			productName = MoltinSwiftExampleTests;
-			productReference = BAB1D4131B7F6D9E000F07A1 /* MoltinSwiftExampleTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -188,14 +130,10 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0640;
-				ORGANIZATIONNAME = moltin;
+				ORGANIZATIONNAME = Moltin;
 				TargetAttributes = {
 					BAB1D3FB1B7F6D9E000F07A1 = {
 						CreatedOnToolsVersion = 6.4;
-					};
-					BAB1D4121B7F6D9E000F07A1 = {
-						CreatedOnToolsVersion = 6.4;
-						TestTargetID = BAB1D3FB1B7F6D9E000F07A1;
 					};
 				};
 			};
@@ -213,7 +151,6 @@
 			projectRoot = "";
 			targets = (
 				BAB1D3FB1B7F6D9E000F07A1 /* MoltinSwiftExample */,
-				BAB1D4121B7F6D9E000F07A1 /* MoltinSwiftExampleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -226,13 +163,6 @@
 				BAB1D4091B7F6D9E000F07A1 /* Main.storyboard in Resources */,
 				BAB1D40E1B7F6D9E000F07A1 /* LaunchScreen.xib in Resources */,
 				BAB1D40B1B7F6D9E000F07A1 /* Images.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		BAB1D4111B7F6D9E000F07A1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,23 +212,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BAB1D40F1B7F6D9E000F07A1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				BAB1D41A1B7F6D9E000F07A1 /* MoltinSwiftExampleTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		BAB1D4151B7F6D9E000F07A1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = BAB1D3FB1B7F6D9E000F07A1 /* MoltinSwiftExample */;
-			targetProxy = BAB1D4141B7F6D9E000F07A1 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		BAB1D4071B7F6D9E000F07A1 /* Main.storyboard */ = {
@@ -425,40 +339,6 @@
 			};
 			name = Release;
 		};
-		BAB1D4211B7F6D9E000F07A1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = MoltinSwiftExampleTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoltinSwiftExample.app/MoltinSwiftExample";
-			};
-			name = Debug;
-		};
-		BAB1D4221B7F6D9E000F07A1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = MoltinSwiftExampleTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MoltinSwiftExample.app/MoltinSwiftExample";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -476,15 +356,6 @@
 			buildConfigurations = (
 				BAB1D41E1B7F6D9E000F07A1 /* Debug */,
 				BAB1D41F1B7F6D9E000F07A1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		BAB1D4201B7F6D9E000F07A1 /* Build configuration list for PBXNativeTarget "MoltinSwiftExampleTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				BAB1D4211B7F6D9E000F07A1 /* Debug */,
-				BAB1D4221B7F6D9E000F07A1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

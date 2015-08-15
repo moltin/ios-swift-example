@@ -3,7 +3,7 @@
 //  MoltinSwiftExample
 //
 //  Created by Dylan McKee on 15/08/2015.
-//  Copyright (c) 2015 moltin. All rights reserved.
+//  Copyright (c) 2015 Moltin. All rights reserved.
 //
 
 import UIKit
@@ -13,10 +13,21 @@ import Moltin
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    let MOLTIN_STORE_ID = "umRG34nxZVGIuCSPfYf8biBSvtABgTR8GMUtflyE"
+    
+    let MOLTIN_LOGGING = true
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Initialise the Moltin SDK with our store ID.
+        Moltin.sharedInstance().setPublicId(MOLTIN_STORE_ID)
+        
+        // Do you want the Moltin SDK to log API calls? (This should probably be false in production apps...)
+        Moltin.sharedInstance().setLoggingEnabled(MOLTIN_LOGGING)
+        
         return true
     }
 
