@@ -1,5 +1,8 @@
+platform :ios, '8.0'
+
 pod 'Moltin', :git => 'https://github.com/moltin/ios-sdk.git', :branch => 'inhouse-dev'
 pod 'SwiftSpinner'
+pod 'SDWebImage', '~>3.7'
 
 
 use_frameworks!

@@ -9,6 +9,8 @@
 #ifndef MoltinSwiftExample_Project_Bridging_Header_h
 #define MoltinSwiftExample_Project_Bridging_Header_h
 
+// Import the entire Moltin SDK
 #import <Moltin/Moltin.h>
+
 
 #endif

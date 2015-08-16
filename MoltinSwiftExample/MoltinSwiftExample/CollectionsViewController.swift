@@ -61,7 +61,7 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
         
         let collectionDictionary = collections?.objectAtIndex(row) as! NSDictionary
         
-        cell.collectionLabel?.text = collectionDictionary.valueForKey("title") as? String
+        cell.setCollectionDictionary(collectionDictionary)
         
         return cell
     }

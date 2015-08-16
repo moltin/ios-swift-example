@@ -22,10 +22,14 @@ PODS:
     - AFNetworking/NSURLSession
   - Moltin (0.0.1):
     - AFNetworking
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
   - SwiftSpinner (0.7.0)
 
 DEPENDENCIES:
   - Moltin (from `https://github.com/moltin/ios-sdk.git`, branch `inhouse-dev`)
+  - SDWebImage (~> 3.7)
   - SwiftSpinner
 
 EXTERNAL SOURCES:
@@ -41,6 +45,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
   Moltin: 46c4eec862d57fefc39b0a701ca1bfa80c704a7a
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SwiftSpinner: 034bb8b00675b3e4f4c97531fa9af3f550462192
 
 COCOAPODS: 0.38.1
