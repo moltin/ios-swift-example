@@ -16,6 +16,8 @@ class ProductListTableViewController: UITableViewController {
     
     private let LOAD_MORE_CELL_IDENTIFIER = "ProductsLoadMoreCell"
     
+    private let PRODUCT_DETAIL_VIEW_SEGUE_IDENTIFIER = "productDetailSegue"
+    
     private var products:NSMutableArray = NSMutableArray()
     
     private var paginationOffset:Int = 0
@@ -23,6 +25,8 @@ class ProductListTableViewController: UITableViewController {
     private var showLoadMore:Bool = true
     
     private let PAGINATION_LIMIT:Int = 3
+    
+    private var selectedProductDict:NSDictionary?
     
     var collectionId:String?
 
@@ -132,7 +136,9 @@ class ProductListTableViewController: UITableViewController {
         
         // Push a product detail view controller for the selected product.
         let product:NSDictionary = products.objectAtIndex(indexPath.row) as! NSDictionary
-
+        selectedProductDict = product
+        
+        performSegueWithIdentifier(PRODUCT_DETAIL_VIEW_SEGUE_IDENTIFIER, sender: self)
         
     }
     
@@ -157,6 +163,15 @@ class ProductListTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        
+        if segue.identifier == PRODUCT_DETAIL_VIEW_SEGUE_IDENTIFIER {
+            // Set up product detail view
+            let newViewController = segue.destinationViewController as! ProductDetailViewController
+            
+            newViewController.title = selectedProductDict!.valueForKey("title") as? String
+            newViewController.productDict = selectedProductDict
+            
+        }
     }
 
     

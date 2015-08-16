@@ -180,10 +180,79 @@
                             <outlet property="delegate" destination="ljq-Ze-Ibe" id="UTf-ch-mJO"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="iIf-0x-2IC" kind="show" identifier="productDetailSegue" id="JO5-H2-BM2"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xcZ-Eg-M0h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2300" y="-320"/>
+        </scene>
+        <!--Product Detail View Controller-->
+        <scene sceneID="I1J-V2-Uwl">
+            <objects>
+                <viewController id="iIf-0x-2IC" customClass="ProductDetailViewController" customModule="MoltinSwiftExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="f5N-bM-C84"/>
+                        <viewControllerLayoutGuide type="bottom" id="lSj-bM-h2i"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dJE-D7-3qu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3jX-Xg-Lsq">
+                                <rect key="frame" x="0.0" y="64" width="600" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="SOk-cs-lwu"/>
+                                </constraints>
+                            </imageView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kWI-kT-p7X">
+                                <rect key="frame" x="0.0" y="262" width="600" height="219"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5mt-BQ-dfE">
+                                <rect key="frame" x="8" y="498" width="584" height="45"/>
+                                <color key="backgroundColor" red="0.12549019610000001" green="0.5532226562" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="VHv-5E-Vst"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                <state key="normal" title="Add to cart">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="buyProduct:" destination="iIf-0x-2IC" eventType="touchDown" id="elu-gy-fFJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="5mt-BQ-dfE" secondAttribute="trailing" constant="-8" id="7Ls-HY-FHH"/>
+                            <constraint firstItem="5mt-BQ-dfE" firstAttribute="leading" secondItem="dJE-D7-3qu" secondAttribute="leadingMargin" constant="-8" id="GxU-cn-E2a"/>
+                            <constraint firstItem="3jX-Xg-Lsq" firstAttribute="top" secondItem="f5N-bM-C84" secondAttribute="bottom" id="RHP-Xo-Tal"/>
+                            <constraint firstItem="kWI-kT-p7X" firstAttribute="leading" secondItem="dJE-D7-3qu" secondAttribute="leadingMargin" constant="-16" id="Vz1-Ij-Vm0"/>
+                            <constraint firstItem="3jX-Xg-Lsq" firstAttribute="leading" secondItem="dJE-D7-3qu" secondAttribute="leadingMargin" constant="-16" id="WnX-5Z-qRn"/>
+                            <constraint firstItem="3jX-Xg-Lsq" firstAttribute="width" secondItem="dJE-D7-3qu" secondAttribute="width" id="aMF-Fv-Tvu"/>
+                            <constraint firstItem="5mt-BQ-dfE" firstAttribute="top" secondItem="kWI-kT-p7X" secondAttribute="bottom" constant="17" id="brg-Ea-A0D"/>
+                            <constraint firstItem="lSj-bM-h2i" firstAttribute="top" secondItem="5mt-BQ-dfE" secondAttribute="bottom" constant="8" id="hkd-I5-HAr"/>
+                            <constraint firstItem="kWI-kT-p7X" firstAttribute="top" secondItem="3jX-Xg-Lsq" secondAttribute="bottom" constant="-2" id="o4u-Ky-Ede"/>
+                            <constraint firstItem="kWI-kT-p7X" firstAttribute="width" secondItem="3jX-Xg-Lsq" secondAttribute="width" id="wfU-bZ-LGW"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="buyButton" destination="5mt-BQ-dfE" id="vTx-tY-KkO"/>
+                        <outlet property="descriptionTextView" destination="kWI-kT-p7X" id="wPx-0X-DgH"/>
+                        <outlet property="productImageView" destination="3jX-Xg-Lsq" id="BQb-Wb-aFz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kFE-Uu-m3h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2983" y="-320"/>
         </scene>
         <!--Cart-->
         <scene sceneID="wg7-f3-ORb">
@@ -204,17 +273,9 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Loaded by CartViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
-                                <rect key="frame" x="192" y="329" width="215.5" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="zEq-FU-wV5" secondAttribute="bottom" constant="8" symbolic="YES" id="Day-4N-Vmt"/>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="JgO-Fn-dHn"/>
                             <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
                             <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
                         </constraints>

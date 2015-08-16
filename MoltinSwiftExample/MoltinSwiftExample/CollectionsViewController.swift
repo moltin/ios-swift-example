@@ -18,7 +18,7 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
     
     private let PRODUCTS_LIST_SEGUE_IDENTIFIER = "productsListSegue"
     
-    private var selectedProductDict:NSDictionary?
+    private var selectedCollectionDict:NSDictionary?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +74,7 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        selectedProductDict = collections?.objectAtIndex(indexPath.row) as? NSDictionary
+        selectedCollectionDict = collections?.objectAtIndex(indexPath.row) as? NSDictionary
 
         performSegueWithIdentifier(PRODUCTS_LIST_SEGUE_IDENTIFIER, sender: self)
 
@@ -107,8 +107,8 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
             // Set up products list view!
             let newViewController = segue.destinationViewController as! ProductListTableViewController
             
-            newViewController.title = selectedProductDict!.valueForKey("title") as? String
-            newViewController.collectionId = selectedProductDict!.valueForKeyPath("id") as? String
+            newViewController.title = selectedCollectionDict!.valueForKey("title") as? String
+            newViewController.collectionId = selectedCollectionDict!.valueForKeyPath("id") as? String
             
         }
         
