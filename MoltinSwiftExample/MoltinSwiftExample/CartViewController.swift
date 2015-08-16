@@ -1,5 +1,5 @@
 //
-//  SecondViewController.swift
+//  CartViewController.swift
 //  MoltinSwiftExample
 //
 //  Created by Dylan McKee on 15/08/2015.
@@ -8,11 +8,13 @@
 
 import UIKit
 
-class SecondViewController: UIViewController {
+class CartViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        self.title = "Cart"
+
     }
 
     override func didReceiveMemoryWarning() {

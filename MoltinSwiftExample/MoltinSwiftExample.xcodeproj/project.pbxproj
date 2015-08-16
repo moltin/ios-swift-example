@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3BC403BAB7377BF293EA981B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FD804E98453A71DB9DE4D998 /* libPods.a */; };
+		9CF44736B2A055F8B90CDDC5 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C016F393761A3A38D2F0FE9 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		BA5728471B7FB0A300F5D919 /* CollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5728461B7FB0A300F5D919 /* CollectionTableViewCell.swift */; };
 		BAB1D4021B7F6D9E000F07A1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1D4011B7F6D9E000F07A1 /* AppDelegate.swift */; };
-		BAB1D4041B7F6D9E000F07A1 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1D4031B7F6D9E000F07A1 /* FirstViewController.swift */; };
-		BAB1D4061B7F6D9E000F07A1 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1D4051B7F6D9E000F07A1 /* SecondViewController.swift */; };
+		BAB1D4041B7F6D9E000F07A1 /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1D4031B7F6D9E000F07A1 /* CollectionsViewController.swift */; };
+		BAB1D4061B7F6D9E000F07A1 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAB1D4051B7F6D9E000F07A1 /* CartViewController.swift */; };
 		BAB1D4091B7F6D9E000F07A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAB1D4071B7F6D9E000F07A1 /* Main.storyboard */; };
 		BAB1D40B1B7F6D9E000F07A1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BAB1D40A1B7F6D9E000F07A1 /* Images.xcassets */; };
 		BAB1D40E1B7F6D9E000F07A1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BAB1D40C1B7F6D9E000F07A1 /* LaunchScreen.xib */; };
@@ -19,16 +20,17 @@
 /* Begin PBXFileReference section */
 		325A32BB88BC1E472AE5CE6B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		71230C33033D5E156D2CE96B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		9C016F393761A3A38D2F0FE9 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA5728461B7FB0A300F5D919 /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
 		BAB1D3FC1B7F6D9E000F07A1 /* MoltinSwiftExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoltinSwiftExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAB1D4001B7F6D9E000F07A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BAB1D4011B7F6D9E000F07A1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		BAB1D4031B7F6D9E000F07A1 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		BAB1D4051B7F6D9E000F07A1 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		BAB1D4031B7F6D9E000F07A1 /* CollectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsViewController.swift; sourceTree = "<group>"; };
+		BAB1D4051B7F6D9E000F07A1 /* CartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartViewController.swift; sourceTree = "<group>"; };
 		BAB1D4081B7F6D9E000F07A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BAB1D40A1B7F6D9E000F07A1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BAB1D40D1B7F6D9E000F07A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		BAB1D4231B7F6F5E000F07A1 /* Project-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Project-Bridging-Header.h"; sourceTree = "<group>"; };
-		FD804E98453A71DB9DE4D998 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,7 +38,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BC403BAB7377BF293EA981B /* libPods.a in Frameworks */,
+				9CF44736B2A055F8B90CDDC5 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,13 +76,14 @@
 			isa = PBXGroup;
 			children = (
 				BAB1D4011B7F6D9E000F07A1 /* AppDelegate.swift */,
-				BAB1D4031B7F6D9E000F07A1 /* FirstViewController.swift */,
-				BAB1D4051B7F6D9E000F07A1 /* SecondViewController.swift */,
+				BAB1D4031B7F6D9E000F07A1 /* CollectionsViewController.swift */,
+				BAB1D4051B7F6D9E000F07A1 /* CartViewController.swift */,
 				BAB1D4071B7F6D9E000F07A1 /* Main.storyboard */,
 				BAB1D40A1B7F6D9E000F07A1 /* Images.xcassets */,
 				BAB1D40C1B7F6D9E000F07A1 /* LaunchScreen.xib */,
 				BAB1D3FF1B7F6D9E000F07A1 /* Supporting Files */,
 				BAB1D4231B7F6F5E000F07A1 /* Project-Bridging-Header.h */,
+				BA5728461B7FB0A300F5D919 /* CollectionTableViewCell.swift */,
 			);
 			path = MoltinSwiftExample;
 			sourceTree = "<group>";
@@ -96,7 +99,7 @@
 		F2483C18BCFF6CAB5D2153D1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FD804E98453A71DB9DE4D998 /* libPods.a */,
+				9C016F393761A3A38D2F0FE9 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -113,6 +116,7 @@
 				BAB1D3F91B7F6D9E000F07A1 /* Frameworks */,
 				BAB1D3FA1B7F6D9E000F07A1 /* Resources */,
 				984084574162899564F77DEF /* Copy Pods Resources */,
+				8C3ADD75E2752D138339F64C /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -184,6 +188,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		8C3ADD75E2752D138339F64C /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		984084574162899564F77DEF /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -206,9 +225,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BAB1D4061B7F6D9E000F07A1 /* SecondViewController.swift in Sources */,
+				BAB1D4061B7F6D9E000F07A1 /* CartViewController.swift in Sources */,
 				BAB1D4021B7F6D9E000F07A1 /* AppDelegate.swift in Sources */,
-				BAB1D4041B7F6D9E000F07A1 /* FirstViewController.swift in Sources */,
+				BAB1D4041B7F6D9E000F07A1 /* CollectionsViewController.swift in Sources */,
+				BA5728471B7FB0A300F5D919 /* CollectionTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +341,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MoltinSwiftExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MoltinSwiftExample/Project-Bridging-Header.h";
@@ -333,6 +354,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MoltinSwiftExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MoltinSwiftExample/Project-Bridging-Header.h";

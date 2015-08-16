@@ -1,2 +1,5 @@
 pod 'Moltin', :git => 'https://github.com/moltin/ios-sdk.git', :branch => 'inhouse-dev'
+pod 'SwiftSpinner'
 
+
+use_frameworks!
