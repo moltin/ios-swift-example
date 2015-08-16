@@ -9,23 +9,33 @@
 import UIKit
 import Moltin
 
+// Declare some global constants to make them easily accessible in other classes.
+
+let MOLTIN_STORE_ID = "umRG34nxZVGIuCSPfYf8biBSvtABgTR8GMUtflyE"
+
+let MOLTIN_LOGGING = true
+
+// RGB: 139, 98, 181
+let MOLTIN_COLOR = UIColor(red: (139.0/255.0), green: (98.0/255.0), blue: (181.0/255.0), alpha: 1.0)
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    let MOLTIN_STORE_ID = "umRG34nxZVGIuCSPfYf8biBSvtABgTR8GMUtflyE"
-    
-    let MOLTIN_LOGGING = true
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        // Set the window's tint color to the Moltin color
+        self.window?.tintColor = MOLTIN_COLOR
         
         // Initialise the Moltin SDK with our store ID.
         Moltin.sharedInstance().setPublicId(MOLTIN_STORE_ID)
         
         // Do you want the Moltin SDK to log API calls? (This should probably be false in production apps...)
         Moltin.sharedInstance().setLoggingEnabled(MOLTIN_LOGGING)
+        
         
         return true
     }
@@ -50,6 +60,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func switchToCartTab() {
+        let tabBarController = self.window!.rootViewController as! UITabBarController
+        tabBarController.selectedIndex = 1
+        
     }
 
 

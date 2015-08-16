@@ -20,6 +20,8 @@ class ProductDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        buyButton?.backgroundColor = MOLTIN_COLOR
 
         // Do any additional setup after loading the view.
         if let description = productDict!.valueForKey("description") as? String {
@@ -53,6 +55,27 @@ class ProductDetailViewController: UIViewController {
     
     @IBAction func buyProduct(sender: AnyObject) {
         // Add the current product to the cart
+        let productId:String = productDict!.objectForKey("id") as! String
+        
+        SwiftSpinner.show("Updating cart")
+        
+        Moltin.sharedInstance().cart.insertItemWithId(productId, quantity: 1, andModifiersOrNil: nil, success: { (response) -> Void in
+            // Done.
+            // Switch to cart...
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            appDelegate.switchToCartTab()
+            
+            // and hide loading UI
+            SwiftSpinner.hide()
+            
+            
+        }) { (response, error) -> Void in
+            // Something went wrong.
+            // Hide loading UI and display an error to the user.
+            SwiftSpinner.hide()
+            
+        }
+        
     }
     
 

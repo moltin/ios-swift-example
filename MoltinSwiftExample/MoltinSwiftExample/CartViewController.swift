@@ -23,5 +23,43 @@ class CartViewController: UIViewController {
     }
 
 
+    // MARK: - TableView Data source & Delegate
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        return 0
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("CollectionCell", forIndexPath: indexPath) as! CollectionTableViewCell
+        
+        let row = indexPath.row
+        
+        
+        return cell
+    }
+    
+
+    
+    func tableView(_tableView: UITableView,
+        willDisplayCell cell: UITableViewCell,
+        forRowAtIndexPath indexPath: NSIndexPath) {
+            
+            if cell.respondsToSelector("setSeparatorInset:") {
+                cell.separatorInset = UIEdgeInsetsZero
+            }
+            if cell.respondsToSelector("setLayoutMargins:") {
+                cell.layoutMargins = UIEdgeInsetsZero
+            }
+            if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
+                cell.preservesSuperviewLayoutMargins = false
+            }
+    }
+    
+    
 }
 
