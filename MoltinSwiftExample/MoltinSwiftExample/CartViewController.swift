@@ -59,12 +59,13 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
             }
             
-            // Hide loading UI
-            SwiftSpinner.hide()
-            
             // And reload table of cart items...
             self.tableView?.reloadData()
             
+            // Hide loading UI
+            SwiftSpinner.hide()
+            
+
             }, failure: { (response, error) -> Void in
                 // Something went wrong; hide loading UI and warn user
                 
@@ -125,6 +126,34 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
     }
     
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.Delete){
+            // Remove the item from the cart.
+            removeItemFromCartAtIndex(indexPath.row)
+        }
+    }
+    
+    private func removeItemFromCartAtIndex(index: Int) {
+        // Get item ID...
+        let selectedProductId = cartProducts!.allKeys[index] as? String
+        
+        SwiftSpinner.show("Updating cart")
+
+        
+        // And remove it from the cart...
+        Moltin.sharedInstance().cart.removeItemWithId(selectedProductId, success: { (response) -> Void in
+            // Completed item removal - refresh cart hide loading UI
+            self.refreshCart()
+
+            SwiftSpinner.hide()
+            
+            
+            }, failure: { (response, error) -> Void in
+                // Removal failed - hide loading UI and warn the user
+                SwiftSpinner.hide()
+        })
+    }
+    
     // MARK: - Cell delegate
     func cartTableViewCellSetQuantity(cell: CartTableViewCell, quantity: Int) {
         // The cell's quantity's been updated by the stepper control - tell the Moltin API and refresh the cart too.
@@ -140,10 +169,10 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         Moltin.sharedInstance().cart.updateItemWithId(cell.productId!, parameters: ["quantity": numberQuantity], success: { (response) -> Void in
             // Update succesful, refresh cart
-            
+            self.refreshCart()
+
             SwiftSpinner.hide()
             
-            self.refreshCart()
             
             }, failure: { (response, error) -> Void in
                 // Something went wrong; hide loading UI and warn user
