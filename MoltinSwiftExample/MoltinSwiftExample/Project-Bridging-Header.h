@@ -9,7 +9,7 @@
 #ifndef MoltinSwiftExample_Project_Bridging_Header_h
 #define MoltinSwiftExample_Project_Bridging_Header_h
 
-// Import the entire Moltin SDK
+// Import the Moltin SDK to expose it to Swift files via 'import Moltin'
 #import <Moltin/Moltin.h>
 
 
