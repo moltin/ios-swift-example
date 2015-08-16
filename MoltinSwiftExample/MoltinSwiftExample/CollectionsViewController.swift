@@ -15,6 +15,10 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var tableView:UITableView?
     
     private var collections:NSArray?
+    
+    private let PRODUCTS_LIST_SEGUE_IDENTIFIER = "productsListSegue"
+    
+    private var selectedProductDict:NSDictionary?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +45,7 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
         
     }
     
+    // MARK: - TableView Data source & Delegate
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
@@ -69,7 +74,44 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
+        selectedProductDict = collections?.objectAtIndex(indexPath.row) as? NSDictionary
 
+        performSegueWithIdentifier(PRODUCTS_LIST_SEGUE_IDENTIFIER, sender: self)
+
+        
+    }
+    
+    func tableView(_tableView: UITableView,
+        willDisplayCell cell: UITableViewCell,
+        forRowAtIndexPath indexPath: NSIndexPath) {
+            
+            if cell.respondsToSelector("setSeparatorInset:") {
+                cell.separatorInset = UIEdgeInsetsZero
+            }
+            if cell.respondsToSelector("setLayoutMargins:") {
+                cell.layoutMargins = UIEdgeInsetsZero
+            }
+            if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
+                cell.preservesSuperviewLayoutMargins = false
+            }
+    }
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using [segue destinationViewController].
+        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == PRODUCTS_LIST_SEGUE_IDENTIFIER {
+            // Set up products list view!
+            let newViewController = segue.destinationViewController as! ProductListTableViewController
+            
+            newViewController.title = selectedProductDict!.valueForKey("title") as? String
+            newViewController.collectionId = selectedProductDict!.valueForKeyPath("id") as? String
+            
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {

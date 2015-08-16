@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import Moltin
+import SwiftSpinner
 
 class ProductListTableViewController: UITableViewController {
     
-    private let CELL_REUSE_IDENTIFIER = "ProductListCell"
+    private let CELL_REUSE_IDENTIFIER = "ProductCell"
     
     private let LOAD_MORE_CELL_IDENTIFIER = "ProductsLoadMoreCell"
     
@@ -19,15 +21,61 @@ class ProductListTableViewController: UITableViewController {
     private var paginationOffset:Int = 0
     
     private var showLoadMore:Bool = true
+    
+    private let PAGINATION_LIMIT:Int = 3
+    
+    var collectionId:String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        loadProducts(true)
         
     }
     
     private func loadProducts(showLoadingAnimation: Bool){
+        assert(collectionId != nil, "Collection ID is required!")
+        
         // Load in the next set of products...
+        
+        // Show loading if neccesary?
+        if showLoadingAnimation {
+            SwiftSpinner.show("Loading products")
+        }
+        
+        Moltin.sharedInstance().product.listingWithParameters(["collection": collectionId!, "limit": NSNumber(integer: PAGINATION_LIMIT), "offset": paginationOffset], success: { (response) -> Void in
+            // Let's use this response!
+            SwiftSpinner.hide()
+            
+            if let newProducts:NSArray = response["result"] as? NSArray {
+                self.products.addObjectsFromArray(newProducts as [AnyObject])
+            }
+            
+            let responseDictionary = response as NSDictionary
+            
+            if let newOffset:NSNumber = responseDictionary.valueForKeyPath("pagination.offsets.next") as? NSNumber {
+                self.paginationOffset = newOffset.integerValue
+                
+            }
+            
+            if let totalProducts:NSNumber = responseDictionary.valueForKeyPath("pagination.total") as? NSNumber {
+                // If we have all the products already, don't show the 'load more' button!
+                if totalProducts.integerValue >= self.products.count {
+                    self.showLoadMore = false
+                }
+                
+            }
+            
+            self.tableView.reloadData()
+            
+        }) { (response, error) -> Void in
+            // Something went wrong!
+            SwiftSpinner.hide()
+
+            println("Something went wrong...")
+            println(error)
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,12 +121,36 @@ class ProductListTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        // Push a product detail view controller for the selected product.
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
+        if (showLoadMore && indexPath.row > (products.count - 1)) {
+            // Load more products!
+            loadProducts(false)
+            return
+        }
+        
+        
+        // Push a product detail view controller for the selected product.
+        let product:NSDictionary = products.objectAtIndex(indexPath.row) as! NSDictionary
+
         
     }
+    
+    override func tableView(_tableView: UITableView,
+        willDisplayCell cell: UITableViewCell,
+        forRowAtIndexPath indexPath: NSIndexPath) {
+            
+            if cell.respondsToSelector("setSeparatorInset:") {
+                cell.separatorInset = UIEdgeInsetsZero
+            }
+            if cell.respondsToSelector("setLayoutMargins:") {
+                cell.layoutMargins = UIEdgeInsetsZero
+            }
+            if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
+                cell.preservesSuperviewLayoutMargins = false
+            }
+    }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -86,6 +158,6 @@ class ProductListTableViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
     }
-    */
 
+    
 }

@@ -71,7 +71,6 @@
                                         <connections>
                                             <outlet property="collectionImage" destination="H2g-cp-UVA" id="GXZ-HV-m60"/>
                                             <outlet property="collectionLabel" destination="J0O-he-c2s" id="8Gr-qC-D2E"/>
-                                            <segue destination="ljq-Ze-Ibe" kind="show" identifier="productsListSegue" id="ahr-xD-obt"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -93,16 +92,17 @@
                     <navigationItem key="navigationItem" id="MaB-UV-zhh"/>
                     <connections>
                         <outlet property="tableView" destination="rUs-6K-T5X" id="V6V-a6-Jec"/>
+                        <segue destination="ljq-Ze-Ibe" kind="show" identifier="productsListSegue" id="2VI-Tb-ezz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1550" y="-320"/>
+            <point key="canvasLocation" x="1589" y="-313"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Product List Table View Controller-->
         <scene sceneID="mIE-il-Bmb">
             <objects>
-                <tableViewController id="ljq-Ze-Ibe" sceneMemberID="viewController">
+                <tableViewController id="ljq-Ze-Ibe" customClass="ProductListTableViewController" customModule="MoltinSwiftExample" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="QzQ-uu-wXU">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -154,7 +154,7 @@
                                     <outlet property="productPriceLabel" destination="fbb-Ya-Cw6" id="A0f-k6-yHK"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductsLoadMoreCell" rowHeight="60" id="0qw-Ew-1IP" customClass="ProductsListTableViewCell" customModule="MoltinSwiftExample" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProductsLoadMoreCell" rowHeight="60" id="0qw-Ew-1IP" customClass="ProductsLoadMoreTableViewCell" customModule="MoltinSwiftExample" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0qw-Ew-1IP" id="WOk-0Z-UrF">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -173,9 +173,6 @@
                                         <constraint firstItem="1Ln-GP-Pb9" firstAttribute="top" secondItem="WOk-0Z-UrF" secondAttribute="topMargin" id="sWe-O2-ENq"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="productNameLabel" destination="1Ln-GP-Pb9" id="oq7-Wm-I3L"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
