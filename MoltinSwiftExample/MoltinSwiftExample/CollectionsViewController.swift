@@ -16,6 +16,8 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
     
     private var collections:NSArray?
     
+    private let COLLECTION_CELL_REUSE_IDENTIFIER = "CollectionCell"
+    
     private let PRODUCTS_LIST_SEGUE_IDENTIFIER = "productsListSegue"
     
     private var selectedCollectionDict:NSDictionary?
@@ -60,7 +62,7 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("CollectionCell", forIndexPath: indexPath) as! CollectionTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(COLLECTION_CELL_REUSE_IDENTIFIER, forIndexPath: indexPath) as! CollectionTableViewCell
         
         let row = indexPath.row
         
