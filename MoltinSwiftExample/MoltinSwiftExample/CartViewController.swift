@@ -10,7 +10,7 @@ import UIKit
 import Moltin
 import SwiftSpinner
 
-class CartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CartTableViewCellDelegate {
     
     private let CART_CELL_REUSE_IDENTIFIER = "CartTableViewCell"
     
@@ -18,8 +18,8 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var totalLabel:UILabel?
     
     private var cartData:NSDictionary?
-    private var cartProducts:NSArray?
-
+    private var cartProducts:NSDictionary?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -28,19 +28,19 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         totalLabel?.text = ""
         
         refreshCart()
-
+        
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     func refreshCart() {
         SwiftSpinner.show("Updating cart")
         
@@ -49,12 +49,14 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
             // Got cart contents succesfully!
             // Set local var's
             self.cartData = response
-            self.cartProducts = self.cartData?.valueForKeyPath("result.contents") as? NSArray
+            //println(self.cartData)
+            
+            self.cartProducts = self.cartData?.valueForKeyPath("result.contents") as? NSDictionary
             
             // Reset cart total
             if let cartPriceString:NSString = self.cartData?.valueForKeyPath("result.totals.post_discount.formatted.with_tax") as? NSString {
                 self.totalLabel?.text = cartPriceString as String
-
+                
             }
             
             // Hide loading UI
@@ -63,16 +65,16 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
             // And reload table of cart items...
             self.tableView?.reloadData()
             
-        }, failure: { (response, error) -> Void in
-            // Something went wrong; hide loading UI and warn user
-            
-            
+            }, failure: { (response, error) -> Void in
+                // Something went wrong; hide loading UI and warn user
+                
+                
         })
         
-
+        
         
     }
-
+    
     // MARK: - TableView Data source & Delegate
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -81,23 +83,32 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (cartProducts != nil) {
-            return cartProducts!.count
+            return cartProducts!.allKeys.count
         }
+        
         
         return 0
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(CART_CELL_REUSE_IDENTIFIER, forIndexPath: indexPath) as! CollectionTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(CART_CELL_REUSE_IDENTIFIER, forIndexPath: indexPath) as! CartTableViewCell
         
         let row = indexPath.row
+        
+        let product:NSDictionary = cartProducts!.allValues[row] as! NSDictionary
+        
+        cell.setItemDictionary(product)
+        
+        cell.productId = cartProducts!.allKeys[row] as? String
+        
+        cell.delegate = self
         
         
         return cell
     }
     
-
+    
     
     func tableView(_tableView: UITableView,
         willDisplayCell cell: UITableViewCell,
@@ -114,6 +125,35 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
     }
     
+    // MARK: - Cell delegate
+    func cartTableViewCellSetQuantity(cell: CartTableViewCell, quantity: Int) {
+        // The cell's quantity's been updated by the stepper control - tell the Moltin API and refresh the cart too.
+        // If quantity is zero, the Moltin API automagically knows to remove the item from the cart
+        
+        // Update to new quantity value...
+        
+        // Loading UI..
+        SwiftSpinner.show("Updating quantity")
+        
+        
+        let numberQuantity:NSNumber = NSNumber(integer: quantity)
+        
+        Moltin.sharedInstance().cart.updateItemWithId(cell.productId!, parameters: ["quantity": numberQuantity], success: { (response) -> Void in
+            // Update succesful, refresh cart
+            
+            SwiftSpinner.hide()
+            
+            self.refreshCart()
+            
+            }, failure: { (response, error) -> Void in
+                // Something went wrong; hide loading UI and warn user
+                SwiftSpinner.hide()
+                
+                
+        })
+        
+        
+    }
     
 }
 

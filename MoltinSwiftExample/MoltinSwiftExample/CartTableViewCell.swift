@@ -16,9 +16,28 @@ class CartTableViewCell: UITableViewCell {
     
     @IBOutlet weak var itemImageView:UIImageView?
     @IBOutlet weak var itemTitleLabel:UILabel?
+    @IBOutlet weak var itemPriceLabel:UILabel?
     @IBOutlet weak var itemQuantityLabel:UILabel?
+    @IBOutlet weak var itemQuantityStepper:UIStepper?
     
     var delegate:CartTableViewCellDelegate?
+    
+    var productId:String?
+
+    var quantity:Int {
+        get {
+            if (self.itemQuantityStepper != nil) {
+                return Int(self.itemQuantityStepper!.value)
+            }
+            
+            return 0
+        }
+        
+        set {
+            self.setItemQuantity(quantity)
+        }
+        
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,11 +52,46 @@ class CartTableViewCell: UITableViewCell {
     
     func setItemDictionary(itemDict: NSDictionary) {
         
+        itemTitleLabel?.text = itemDict.valueForKey("title") as? String
+        
+        itemPriceLabel?.text = itemDict.valueForKeyPath("totals.post_discount.formatted.with_tax") as? String
+        
+        if let qty:NSNumber = itemDict.valueForKeyPath("quantity") as? NSNumber {
+            let itemQuantityText = "Qty. \(qty.integerValue)"
+            self.itemQuantityStepper?.value = qty.doubleValue
+        }
+        
+
+        
+        var imageUrl = ""
+        
+        if let images = itemDict.objectForKey("images") as? NSArray {
+            if (images.firstObject != nil) {
+                imageUrl = images.firstObject?.valueForKeyPath("url.https") as! String
+            }
+            
+        }
+        
+        itemImageView?.sd_setImageWithURL(NSURL(string: imageUrl))
     }
     
-    func setQuantity(quantity: Int) {
+    @IBAction func stepperValueChanged(sender: AnyObject){
+        let value = Int(itemQuantityStepper!.value)
+        
+        setItemQuantity(value)
+        
+    }
+    
+    func setItemQuantity(quantity: Int) {
         let itemQuantityText = "Qty. \(quantity)"
         itemQuantityLabel?.text = itemQuantityText
+        
+        itemQuantityStepper?.value = Double(quantity)
+        
+        // Notify delegate, if there is one, too...
+        if (delegate != nil) {
+            delegate?.cartTableViewCellSetQuantity(self, quantity: quantity)
+        }
         
     }
 
