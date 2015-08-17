@@ -16,6 +16,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var tableView:UITableView?
     @IBOutlet weak var totalLabel:UILabel?
+    @IBOutlet weak var checkoutButton:UIButton?
     
     private var cartData:NSDictionary?
     private var cartProducts:NSDictionary?
@@ -27,12 +28,14 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         totalLabel?.text = ""
         
-        refreshCart()
         
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
+        refreshCart()
         
     }
     
@@ -49,7 +52,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
             // Got cart contents succesfully!
             // Set local var's
             self.cartData = response
-            //println(self.cartData)
+            println(self.cartData)
             
             self.cartProducts = self.cartData?.valueForKeyPath("result.contents") as? NSDictionary
             
@@ -65,10 +68,13 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
             // Hide loading UI
             SwiftSpinner.hide()
             
+            // If there's < 1 product in the cart, disable the checkout button
+            self.checkoutButton?.enabled = (self.cartProducts != nil && self.cartProducts?.count > 0)
 
             }, failure: { (response, error) -> Void in
                 // Something went wrong; hide loading UI and warn user
-                
+                SwiftSpinner.hide()
+
                 
         })
         
@@ -159,15 +165,11 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         // The cell's quantity's been updated by the stepper control - tell the Moltin API and refresh the cart too.
         // If quantity is zero, the Moltin API automagically knows to remove the item from the cart
         
-        // Update to new quantity value...
-        
         // Loading UI..
         SwiftSpinner.show("Updating quantity")
         
-        
-        let numberQuantity:NSNumber = NSNumber(integer: quantity)
-        
-        Moltin.sharedInstance().cart.updateItemWithId(cell.productId!, parameters: ["quantity": numberQuantity], success: { (response) -> Void in
+        // Update to new quantity value...
+        Moltin.sharedInstance().cart.updateItemWithId(cell.productId!, parameters: ["quantity": quantity], success: { (response) -> Void in
             // Update succesful, refresh cart
             self.refreshCart()
 
@@ -181,6 +183,11 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
         })
         
+        
+    }
+    
+    // MARK: - Checkout button
+    @IBAction func checkoutButtonClicked(sender: AnyObject) {
         
     }
     

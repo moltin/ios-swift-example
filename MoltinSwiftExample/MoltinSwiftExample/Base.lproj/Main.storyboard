@@ -415,6 +415,7 @@
                     <tabBarItem key="tabBarItem" title="Cart" image="second" id="cPa-gy-q4n"/>
                     <navigationItem key="navigationItem" id="Ny0-GU-M2A"/>
                     <connections>
+                        <outlet property="checkoutButton" destination="NeJ-Vo-sS4" id="sAK-zp-jho"/>
                         <outlet property="tableView" destination="wMl-od-CvN" id="kEz-EC-hnB"/>
                         <outlet property="totalLabel" destination="y4b-MI-N3o" id="L8Z-4l-Tew"/>
                     </connections>
