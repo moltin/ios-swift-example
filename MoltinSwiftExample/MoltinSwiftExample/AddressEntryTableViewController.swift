@@ -10,7 +10,7 @@ import UIKit
 import Moltin
 import SwiftSpinner
 
-class AddressEntryTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class AddressEntryTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, SwitchTableViewCellDelegate, TextEntryTableViewCellDelegate {
     
     var billingDictionary:Dictionary<String, String>?
     var shippingDictionary:Dictionary<String, String>?
@@ -18,9 +18,12 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     var contactFieldsArray = Array<Dictionary< String, String>>()
     
     // Assume it's the billing contact address by default, unless told that it's the shipping address.
-    var isShippingAddress:Bool = false
+    var isShippingAddress = false
+    
     
     var countryArray:Array<Dictionary< String, String>>?
+    
+    private var useSameShippingAddress = false
     
     // Field identifier key constants
     private let contactEmailFieldIdentifier = "email"
@@ -108,6 +111,8 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         
         countryPickerView.delegate = self
         countryPickerView.dataSource = self
+        countryPickerView.backgroundColor = UIColor.whiteColor()
+        countryPickerView.opaque = true
 
         // Load table data
         self.tableView.reloadData()
@@ -129,28 +134,47 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         
+        if !isShippingAddress {
+            return (contactFieldsArray.count + 2)
+        }
+        
         return (contactFieldsArray.count + 1)
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        if indexPath.row == contactFieldsArray.count {
+        if ((indexPath.row == contactFieldsArray.count && isShippingAddress) || (indexPath.row == contactFieldsArray.count + 1 && !isShippingAddress)) {
             // Show Continue button cell!
             let cell = tableView.dequeueReusableCellWithIdentifier(CONTINUE_BUTTON_CELL_IDENTIFIER, forIndexPath: indexPath) as! ContinueButtonTableViewCell
             return cell
 
         }
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(TextEntryTableViewCell.REUSE_IDENTIFIER, forIndexPath: indexPath) as! TextEntryTableViewCell
+        if (indexPath.row == contactFieldsArray.count && !isShippingAddress) {
+            // Show Switch cell
+            let cell = tableView.dequeueReusableCellWithIdentifier(SWITCH_TABLE_CELL_REUSE_IDENTIFIER, forIndexPath: indexPath) as! SwitchTableViewCell
+            cell.switchLabel?.text = "Shipping address same as billing?"
+            cell.switchLabel?.tintColor = MOLTIN_COLOR
+            cell.delegate? = self
+            return cell
+            
+        }
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(TEXT_ENTRY_CELL_REUSE_IDENTIFIER, forIndexPath: indexPath) as! TextEntryTableViewCell
         
         // Configure the cell...
         cell.textField?.placeholder = contactFieldsArray[indexPath.row]["name"]!
         var identifier = contactFieldsArray[indexPath.row]["identifier"]!
         cell.cellId? = identifier
+        cell.delegate? = self
+        
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        
         
         if identifier == countryFieldIdentifier {
             // Make the country field non-editable, and attach the country picker view to it.
             cell.textField?.inputAccessoryView = countryPickerView
+            cell.hideCursor()
         }
         
         var dict = billingDictionary
@@ -205,8 +229,6 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         
         let selectedCountry = countryArray![row]["name"]!
         
-        print(selectedCountry)
-        
         if isShippingAddress {
             shippingDictionary?[countryFieldIdentifier] = selectedCountry
         } else {
@@ -222,6 +244,22 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         // TODO: Implement
         return Dictionary<String, String>()
         
+    }
+    
+    //MARK: - Text field Cell Delegate
+    func textEnteredInCell(cell: TextEntryTableViewCell, cellId:String, text: String) {
+        let cellId = cell.cellId!
+        
+        if isShippingAddress {
+            shippingDictionary?[cellId] = text
+        } else {
+            billingDictionary?[cellId] = text
+        }
+    }
+    
+    //MARK: - Switch Cell Delegate
+    func switchCellSwitched(cell: SwitchTableViewCell, status: Bool) {
+        useSameShippingAddress = status
     }
     
     

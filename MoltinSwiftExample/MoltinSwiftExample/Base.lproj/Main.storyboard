@@ -286,6 +286,39 @@
                                     <outlet property="textField" destination="ny9-2B-K9k" id="wLd-wy-uag"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="switchCell" id="eNs-W2-ymd" customClass="SwitchTableViewCell" customModule="MoltinSwiftExample" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eNs-W2-ymd" id="o5n-TZ-Y6Y">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l8V-hQ-yvF">
+                                            <rect key="frame" x="8" y="6" width="527" height="31"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WfM-rP-BcB">
+                                            <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="switchChanged:" destination="eNs-W2-ymd" eventType="valueChanged" id="1KW-yi-mLG"/>
+                                            </connections>
+                                        </switch>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="WfM-rP-BcB" firstAttribute="trailing" secondItem="o5n-TZ-Y6Y" secondAttribute="trailingMargin" id="8jR-OZ-2f8"/>
+                                        <constraint firstItem="WfM-rP-BcB" firstAttribute="top" secondItem="o5n-TZ-Y6Y" secondAttribute="topMargin" constant="-2" id="9ub-fc-S2f"/>
+                                        <constraint firstItem="l8V-hQ-yvF" firstAttribute="leading" secondItem="o5n-TZ-Y6Y" secondAttribute="leadingMargin" id="clM-2Y-oyc"/>
+                                        <constraint firstItem="WfM-rP-BcB" firstAttribute="leading" secondItem="l8V-hQ-yvF" secondAttribute="trailing" constant="8" id="eC0-9v-ggp"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="l8V-hQ-yvF" secondAttribute="bottom" constant="-1.5" id="u82-fX-z2E"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="WfM-rP-BcB" secondAttribute="bottom" constant="-1.5" id="xc6-Sk-x3f"/>
+                                        <constraint firstItem="l8V-hQ-yvF" firstAttribute="top" secondItem="o5n-TZ-Y6Y" secondAttribute="topMargin" constant="-2" id="yb2-4B-lgt"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="switchLabel" destination="l8V-hQ-yvF" id="a2V-fs-bbu"/>
+                                </connections>
+                            </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="continueButtonCell" id="BCT-Xc-UoX" customClass="ContinueButtonTableViewCell" customModule="MoltinSwiftExample" customModuleProvider="target">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BCT-Xc-UoX" id="gF6-ft-b4s">

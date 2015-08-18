@@ -8,12 +8,13 @@
 
 import UIKit
 
+let TEXT_ENTRY_CELL_REUSE_IDENTIFIER = "textEntryCell"
+
 protocol TextEntryTableViewCellDelegate {
     func textEnteredInCell(cell: TextEntryTableViewCell, cellId:String, text: String)
 }
 
 class TextEntryTableViewCell: UITableViewCell {
-    static let REUSE_IDENTIFIER = "textEntryCell"
     
     @IBOutlet weak var textField:UITextField?
     
@@ -32,6 +33,11 @@ class TextEntryTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    
+    func hideCursor() {
+        // Set the cursor colour to white in the text field to 'hide' it.
+        textField?.tintColor = UIColor.clearColor()
+    }
     
 
 }
