@@ -44,6 +44,15 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
             // Set-up extra billing address fields...
             fields = [contactEmailFieldIdentifier, contactFirstNameFieldIdentifier, contactLastNameFieldIdentifier, address1FieldIdentifier, address2FieldIdentifier, cityFieldIdentifier, stateFieldIdentifier, countryFieldIdentifier, postcodeFieldIdentifier]
 
+            billingDictionary = Dictionary<String, String>()
+            
+            self.title = "Billing Address"
+
+        } else {
+            shippingDictionary = Dictionary<String, String>()
+            
+            self.title = "Shipping Address"
+
         }
         
         for field in fields {
@@ -60,6 +69,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         
         // If country array is blank, let's fetch it...
         if (countryArray == nil) {
+            println("countryArray is nil")
             SwiftSpinner.show("Loading countries")
             
             // Fetch countries from Moltin API, showing loading animation whilst this async fetch is happening.
@@ -67,6 +77,8 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
                 // Got a response, let's extract the countries...
                 let responseDict = response as NSDictionary
                 let tmpCountries = responseDict.valueForKeyPath("result.country.available") as! NSDictionary
+                
+                self.countryArray = Array<Dictionary< String, String>>()
                 
                 // Country codes are stored as keys, their values contain dicts, which in turn contain the country names.
                 for countryCode in tmpCountries.allKeys {
@@ -117,10 +129,18 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         
-        return contactFieldsArray.count
+        return (contactFieldsArray.count + 1)
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        if indexPath.row == contactFieldsArray.count {
+            // Show Continue button cell!
+            let cell = tableView.dequeueReusableCellWithIdentifier(CONTINUE_BUTTON_CELL_IDENTIFIER, forIndexPath: indexPath) as! ContinueButtonTableViewCell
+            return cell
+
+        }
+        
         let cell = tableView.dequeueReusableCellWithIdentifier(TextEntryTableViewCell.REUSE_IDENTIFIER, forIndexPath: indexPath) as! TextEntryTableViewCell
         
         // Configure the cell...
@@ -128,17 +148,23 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         var identifier = contactFieldsArray[indexPath.row]["identifier"]!
         cell.cellId? = identifier
         
+        if identifier == countryFieldIdentifier {
+            // Make the country field non-editable, and attach the country picker view to it.
+            cell.textField?.inputAccessoryView = countryPickerView
+        }
+        
         var dict = billingDictionary
         if isShippingAddress {
             dict = shippingDictionary
         }
         
-        var existingEntry = dict![identifier]
-        if (existingEntry != nil) {
-            if count(existingEntry!) > 0 {
-                cell.textField?.text = existingEntry!
+        if let existingEntry = dict![identifier] {
+            if count(existingEntry) > 0 {
+                cell.textField?.text = existingEntry
             }
         }
+
+        
         
         return cell
     }
@@ -147,11 +173,12 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        // If the user tapped on the Country field, we need to show the country picker...
-        if (tableView.cellForRowAtIndexPath(indexPath) as! TextEntryTableViewCell).cellId! == countryFieldIdentifier {
+        // If the user tapped on the Continue button, continue!
+        if indexPath.row == contactFieldsArray.count {
             
+            return
         }
-        
+
     }
     
     //MARK: - Country picker delegate and data source
@@ -160,15 +187,33 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+
+        
         return countryArray!.count
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+
         return countryArray![row]["name"]
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // User's set a country.
+        if countryArray == nil {
+            return
+        }
+        
+        let selectedCountry = countryArray![row]["name"]!
+        
+        print(selectedCountry)
+        
+        if isShippingAddress {
+            shippingDictionary?[countryFieldIdentifier] = selectedCountry
+        } else {
+            billingDictionary?[countryFieldIdentifier] = selectedCountry
+        }
+        
+        self.tableView.reloadData()
         
     }
     

@@ -21,6 +21,8 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     private var cartData:NSDictionary?
     private var cartProducts:NSDictionary?
     
+    private let BILLING_ADDRESS_SEGUE_IDENTIFIER = "showBillingAddress"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -193,7 +195,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - Checkout button
     @IBAction func checkoutButtonClicked(sender: AnyObject) {
-        
+        performSegueWithIdentifier(BILLING_ADDRESS_SEGUE_IDENTIFIER, sender: self)
     }
     
 }
