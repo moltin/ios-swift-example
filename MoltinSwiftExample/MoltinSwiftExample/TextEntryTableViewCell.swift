@@ -13,7 +13,7 @@ protocol TextEntryTableViewCellDelegate {
 }
 
 class TextEntryTableViewCell: UITableViewCell {
-    let REUSE_IDENTIFIER = "textEntryCell"
+    static let REUSE_IDENTIFIER = "textEntryCell"
     
     @IBOutlet weak var textField:UITextField?
     
