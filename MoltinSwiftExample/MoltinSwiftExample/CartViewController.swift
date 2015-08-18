@@ -75,6 +75,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
                 // Something went wrong; hide loading UI and warn user
                 SwiftSpinner.hide()
 
+                AlertDialog.showAlert("Error", message: "Couldn't load cart", viewController: self)
                 
         })
         
@@ -157,6 +158,9 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
             }, failure: { (response, error) -> Void in
                 // Removal failed - hide loading UI and warn the user
                 SwiftSpinner.hide()
+                
+                AlertDialog.showAlert("Error", message: "Couldn't update cart", viewController: self)
+
         })
     }
     
@@ -180,6 +184,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
                 // Something went wrong; hide loading UI and warn user
                 SwiftSpinner.hide()
                 
+                AlertDialog.showAlert("Error", message: "Couldn't update cart", viewController: self)
                 
         })
         

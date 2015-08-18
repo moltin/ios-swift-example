@@ -47,6 +47,7 @@ class ProductListTableViewController: UITableViewController {
             SwiftSpinner.show("Loading products")
         }
         
+        
         Moltin.sharedInstance().product.listingWithParameters(["collection": collectionId!, "limit": NSNumber(integer: PAGINATION_LIMIT), "offset": paginationOffset], success: { (response) -> Void in
             // Let's use this response!
             SwiftSpinner.hide()
@@ -75,6 +76,8 @@ class ProductListTableViewController: UITableViewController {
         }) { (response, error) -> Void in
             // Something went wrong!
             SwiftSpinner.hide()
+            
+            AlertDialog.showAlert("Error", message: "Couldn't load products", viewController: self)
 
             println("Something went wrong...")
             println(error)

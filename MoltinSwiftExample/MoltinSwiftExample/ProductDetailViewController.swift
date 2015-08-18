@@ -74,6 +74,8 @@ class ProductDetailViewController: UIViewController {
             // Hide loading UI and display an error to the user.
             SwiftSpinner.hide()
             
+            AlertDialog.showAlert("Error", message: "Couldn't add product to the cart", viewController: self)
+
         }
         
     }
