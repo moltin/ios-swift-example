@@ -12,6 +12,7 @@ import SwiftSpinner
 
 class AddressEntryTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, SwitchTableViewCellDelegate, TextEntryTableViewCellDelegate {
     
+    var emailAddress:String?
     var billingDictionary:Dictionary<String, String>?
     var shippingDictionary:Dictionary<String, String>?
     
@@ -19,7 +20,6 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     
     // Assume it's the billing contact address by default, unless told that it's the shipping address.
     var isShippingAddress = false
-    
     
     var countryArray:Array<Dictionary< String, String>>?
     
@@ -38,6 +38,12 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     
     private let countryPickerView = UIPickerView()
     
+    private let BILLING_ADDRESS_SHIPPING_SEGUE = "billingShippingSegue"
+    private let SHIPPING_ADDRESS_SHIPPING_SEGUE = "shippingShippingSegue"
+    private let SHIPPING_ADDRESS_SEGUE = "shippingaAddressSegue"
+
+    
+    //MARK: - View loading
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -118,12 +124,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         self.tableView.reloadData()
         
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -198,8 +199,8 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         // If the user tapped on the Continue button, continue!
-        if indexPath.row == contactFieldsArray.count {
-            
+        if ((indexPath.row == contactFieldsArray.count && isShippingAddress) || (indexPath.row == contactFieldsArray.count + 1 && !isShippingAddress)) {
+            continueButtonTapped()
             return
         }
 
@@ -239,6 +240,61 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         
     }
     
+    // MARK: - Data validation
+    func validateData() -> Bool {
+        var sourceDict:Dictionary<String, String>
+        if !isShippingAddress {
+            // Check email address too...
+            if emailAddress == nil {
+                // no email - warn and give up!
+                AlertDialog.showAlert("Error", message: "No email address entered! Please enter a valid email and try again.", viewController: self)
+                
+                return false
+            }
+            
+            sourceDict = billingDictionary!
+        } else {
+            sourceDict = shippingDictionary!
+        }
+        
+        let requiredFields = [contactFirstNameFieldIdentifier, contactLastNameFieldIdentifier, address1FieldIdentifier, cityFieldIdentifier, stateFieldIdentifier, countryFieldIdentifier, postcodeFieldIdentifier]
+        
+        var valid = true
+        
+        for field in requiredFields {
+            var valuePresent = false
+            var lengthValid = false
+            
+            if let value = sourceDict[field] {
+                // success
+                valuePresent = true
+                var stringValue = value as String
+                if count(stringValue) < 1 {
+                    // The string's empty!
+                    lengthValid = true
+                }
+                continue
+            } else {
+                valuePresent = false
+            }
+            
+            if !valuePresent || !lengthValid {
+                // Warn user!
+                valid = false
+                
+                var userPresentableName = field.stringByReplacingOccurrencesOfString("_", withString: " ")
+                userPresentableName = userPresentableName.capitalizedString
+                
+                AlertDialog.showAlert("Error", message: "\(userPresentableName) is not present", viewController: self)
+            }
+        }
+        
+        return valid
+        
+    }
+    
+    // MARK: - Data processing
+
     // A function that gets all of the address field values and returns a billing or shipping address dictionary suitable to pass to the Moltin API.
     func getAddressDict() -> Dictionary<String, String> {
         // TODO: Implement
@@ -262,6 +318,36 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         useSameShippingAddress = status
     }
     
+    //MARK: - Continue Button
+    private func continueButtonTapped() {
+        // If this is the billing address screen, see if the user wants to enter a seperate shipping address...
+        // If they do, transition to the shipping address entry screen
+        // If they don't - or this is the shipping address screen - carry on with the order...
+        
+        
+        // First, check the data entered is valid - if it isn't don't bother.
+        if !validateData() {
+            return
+        }
+
+        if isShippingAddress {
+            performSegueWithIdentifier(SHIPPING_ADDRESS_SHIPPING_SEGUE, sender: self)
+        } else {
+            if useSameShippingAddress {
+                // They wanna use the current billing address as the shipping address too, so we need to segue to the shipping method choice view, since we know all details now.
+                performSegueWithIdentifier(BILLING_ADDRESS_SHIPPING_SEGUE, sender: self)
+            } else {
+                performSegueWithIdentifier(SHIPPING_ADDRESS_SEGUE, sender: self)
+
+            }
+            
+        }
+        
+        
+
+    }
+    
+    
     
     // MARK: - Navigation
     
@@ -269,6 +355,37 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        
+        
+        var billingDict:Dictionary<String, String>
+        var shippingDict:Dictionary<String, String>
+        
+        if isShippingAddress {
+            billingDict = billingDictionary!
+            shippingDict = getAddressDict()
+        } else {
+            billingDict = getAddressDict()
+
+        }
+        
+        if useSameShippingAddress {
+            shippingDict = billingDict
+        }
+        
+        if segue.identifier == SHIPPING_ADDRESS_SHIPPING_SEGUE || segue.identifier == BILLING_ADDRESS_SHIPPING_SEGUE {
+            // Set up the shipping address view's address variables...
+            
+        }
+        
+        if segue.identifier == SHIPPING_ADDRESS_SEGUE {
+            // We're seguing to another AddressEntryTableViewController instance, let's let it know that it's for shipping address entry, and that it has a billing address already...
+            let newViewController = segue.destinationViewController as! AddressEntryTableViewController
+            newViewController.isShippingAddress = true
+            newViewController.billingDictionary = billingDict
+            newViewController.countryArray = countryArray!
+            newViewController.emailAddress = emailAddress!
+        }
+        
     }
     
 }
