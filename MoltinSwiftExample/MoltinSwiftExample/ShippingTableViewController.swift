@@ -13,7 +13,8 @@ import SwiftSpinner
 class ShippingTableViewController: UITableViewController {
     
     private let SHIPPING_CELL_REUSE_IDENTIFIER = "shippingMethodCell"
-    
+    private let PAYMENT_SEGUE = "paymentSegue"
+
     private var shippingMethods:NSArray?
     
     // It needs some pass-through variables too...
@@ -89,16 +90,24 @@ class ShippingTableViewController: UITableViewController {
         selectedShippingMethodSlug = (shippingMethod.valueForKey("slug") as! String)
         
         // Continue!
+        performSegueWithIdentifier(PAYMENT_SEGUE, sender: self)
     }
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if segue.identifier == PAYMENT_SEGUE {
+            // Setup payment view...
+            let paymentView = segue.destinationViewController as! PaymentViewController
+            paymentView.billingDictionary = self.billingDictionary
+            paymentView.shippingDictionary = self.shippingDictionary
+            paymentView.emailAddress = self.emailAddress
+            paymentView.selectedShippingMethodSlug = self.selectedShippingMethodSlug
+        }
+        
     }
-    */
 
 }

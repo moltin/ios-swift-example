@@ -12,6 +12,7 @@
 		BA0403641B8211FB00ED8063 /* ShippingMethodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0403631B8211FB00ED8063 /* ShippingMethodTableViewCell.swift */; };
 		BA0403661B822C7A00ED8063 /* TextEntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0403651B822C7A00ED8063 /* TextEntryTableViewCell.swift */; };
 		BA04036A1B82629C00ED8063 /* AddressEntryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0403691B82629C00ED8063 /* AddressEntryTableViewController.swift */; };
+		BA55A9CD1B85F24800F928F4 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA55A9CC1B85F24800F928F4 /* PaymentViewController.swift */; };
 		BA5728471B7FB0A300F5D919 /* CollectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5728461B7FB0A300F5D919 /* CollectionTableViewCell.swift */; };
 		BA62A4B21B8339E6009D9BD2 /* AlertDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA62A4B11B8339E6009D9BD2 /* AlertDialog.swift */; };
 		BA9637981B80B13600BCD1E0 /* ProductListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA9637971B80B13600BCD1E0 /* ProductListTableViewController.swift */; };
@@ -37,6 +38,7 @@
 		BA0403631B8211FB00ED8063 /* ShippingMethodTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingMethodTableViewCell.swift; sourceTree = "<group>"; };
 		BA0403651B822C7A00ED8063 /* TextEntryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextEntryTableViewCell.swift; sourceTree = "<group>"; };
 		BA0403691B82629C00ED8063 /* AddressEntryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressEntryTableViewController.swift; sourceTree = "<group>"; };
+		BA55A9CC1B85F24800F928F4 /* PaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		BA5728461B7FB0A300F5D919 /* CollectionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionTableViewCell.swift; sourceTree = "<group>"; };
 		BA62A4B11B8339E6009D9BD2 /* AlertDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertDialog.swift; sourceTree = "<group>"; };
 		BA9637971B80B13600BCD1E0 /* ProductListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductListTableViewController.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				BA96379F1B80F9E500BCD1E0 /* ProductDetailViewController.swift */,
 				BA0403611B820FF200ED8063 /* ShippingTableViewController.swift */,
 				BA0403691B82629C00ED8063 /* AddressEntryTableViewController.swift */,
+				BA55A9CC1B85F24800F928F4 /* PaymentViewController.swift */,
 			);
 			name = "View controllers";
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				BA62A4B21B8339E6009D9BD2 /* AlertDialog.swift in Sources */,
 				BA04036A1B82629C00ED8063 /* AddressEntryTableViewController.swift in Sources */,
 				BA96379E1B80B72D00BCD1E0 /* ProductsLoadMoreTableViewCell.swift in Sources */,
+				BA55A9CD1B85F24800F928F4 /* PaymentViewController.swift in Sources */,
 				BA0403661B822C7A00ED8063 /* TextEntryTableViewCell.swift in Sources */,
 				BA9637981B80B13600BCD1E0 /* ProductListTableViewController.swift in Sources */,
 				BAE268141B83DDC7006E6DE6 /* SwitchTableViewCell.swift in Sources */,
