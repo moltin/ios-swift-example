@@ -25,6 +25,8 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     
     private var useSameShippingAddress = false
     
+    private var selectedCountryIndex:Int?
+    
     // Field identifier key constants
     private let contactEmailFieldIdentifier = "email"
     private let contactFirstNameFieldIdentifier = "first_name"
@@ -40,7 +42,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     
     private let BILLING_ADDRESS_SHIPPING_SEGUE = "billingShippingSegue"
     private let SHIPPING_ADDRESS_SHIPPING_SEGUE = "shippingShippingSegue"
-    private let SHIPPING_ADDRESS_SEGUE = "shippingaAddressSegue"
+    private let SHIPPING_ADDRESS_SEGUE = "shippingAddressSegue"
 
     
     //MARK: - View loading
@@ -78,7 +80,6 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         
         // If country array is blank, let's fetch it...
         if (countryArray == nil) {
-            println("countryArray is nil")
             SwiftSpinner.show("Loading countries")
             
             // Fetch countries from Moltin API, showing loading animation whilst this async fetch is happening.
@@ -111,7 +112,8 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
                     SwiftSpinner.hide()
 
                     AlertDialog.showAlert("Error", message: "Sorry, could not load countries", viewController: self)
-                    
+                    println("Something went wrong...")
+                    println(error)
             })
         }
         
@@ -156,7 +158,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
             let cell = tableView.dequeueReusableCellWithIdentifier(SWITCH_TABLE_CELL_REUSE_IDENTIFIER, forIndexPath: indexPath) as! SwitchTableViewCell
             cell.switchLabel?.text = "Shipping address same as billing?"
             cell.switchLabel?.tintColor = MOLTIN_COLOR
-            cell.delegate? = self
+            cell.delegate = self
             return cell
             
         }
@@ -166,8 +168,8 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         // Configure the cell...
         cell.textField?.placeholder = contactFieldsArray[indexPath.row]["name"]!
         var identifier = contactFieldsArray[indexPath.row]["identifier"]!
-        cell.cellId? = identifier
-        cell.delegate? = self
+        cell.cellId = identifier
+        cell.delegate = self
         
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
@@ -224,6 +226,8 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // User's set a country.
+        selectedCountryIndex = row
+        
         if countryArray == nil {
             return
         }
@@ -297,14 +301,55 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
 
     // A function that gets all of the address field values and returns a billing or shipping address dictionary suitable to pass to the Moltin API.
     func getAddressDict() -> Dictionary<String, String> {
-        // TODO: Implement
-        return Dictionary<String, String>()
+        var sourceDict:Dictionary<String, String>
+        if !isShippingAddress {
+            sourceDict = billingDictionary!
+        } else {
+            sourceDict = shippingDictionary!
+        }
         
+        var country = sourceDict[countryFieldIdentifier]
+        // Perform a country code lookup
+        if countryArray != nil {
+            country = countryArray![selectedCountryIndex!]["code"]
+            
+        }
+        
+        var formattedDict = Dictionary<String, String>()
+        formattedDict[contactFirstNameFieldIdentifier] = sourceDict[contactFirstNameFieldIdentifier]
+        formattedDict[contactLastNameFieldIdentifier] = sourceDict[contactLastNameFieldIdentifier]
+        formattedDict[address1FieldIdentifier] = sourceDict[address1FieldIdentifier]
+        
+        // Concatenate together Address 2...
+        var address2 = ""
+        if (formattedDict[address2FieldIdentifier] != nil) {
+            // There's a value in address 2
+            address2 = formattedDict[address2FieldIdentifier]!
+
+        }
+        
+        // Add on city
+        address2 = address2 +  ", " + sourceDict[cityFieldIdentifier]!
+            
+        // Add on state
+        address2 = address2 + ", " +  sourceDict[stateFieldIdentifier]!
+
+        
+        formattedDict[countryFieldIdentifier] = country
+        formattedDict[postcodeFieldIdentifier] = sourceDict[postcodeFieldIdentifier]
+        
+        return formattedDict
+
     }
     
     //MARK: - Text field Cell Delegate
     func textEnteredInCell(cell: TextEntryTableViewCell, cellId:String, text: String) {
         let cellId = cell.cellId!
+        
+        if cellId == contactEmailFieldIdentifier {
+            emailAddress = text
+            return
+        }
         
         if isShippingAddress {
             shippingDictionary?[cellId] = text
@@ -315,7 +360,9 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     
     //MARK: - Switch Cell Delegate
     func switchCellSwitched(cell: SwitchTableViewCell, status: Bool) {
+        // User has selected to use the same shipping address as billing address.
         useSameShippingAddress = status
+        
     }
     
     //MARK: - Continue Button

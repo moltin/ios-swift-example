@@ -273,6 +273,9 @@
                                             <rect key="frame" x="8" y="7" width="584" height="30"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                             <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="textFieldDidEndEditing:" destination="dsE-A5-tvS" eventType="editingChanged" id="kvn-kq-eFi"/>
+                                            </connections>
                                         </textField>
                                     </subviews>
                                     <constraints>
@@ -298,7 +301,7 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WfM-rP-BcB">
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="WfM-rP-BcB">
                                             <rect key="frame" x="543" y="6" width="51" height="31"/>
                                             <connections>
                                                 <action selector="switchChanged:" destination="eNs-W2-ymd" eventType="valueChanged" id="1KW-yi-mLG"/>
@@ -346,12 +349,13 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <segue destination="Q7e-sY-rBH" kind="show" identifier="showShippingAddress" id="Rke-oP-rRv"/>
+                        <segue destination="Q7e-sY-rBH" kind="show" identifier="shippingAddressSegue" id="Rke-oP-rRv"/>
+                        <segue destination="m0W-jE-Y3M" kind="show" identifier="billingShippingSegue" id="hHa-lv-qoD"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HaE-x7-ybj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2300" y="360"/>
+            <point key="canvasLocation" x="2316" y="354"/>
         </scene>
         <!--Cart-->
         <scene sceneID="wg7-f3-ORb">
@@ -567,19 +571,230 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="textEntryCell" id="Or0-st-eAl" customClass="TextEntryTableViewCell" customModule="MoltinSwiftExample" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Or0-st-eAl" id="VeA-2a-oFv">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FDY-6x-7cW">
+                                            <rect key="frame" x="8" y="7" width="584" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="textFieldDidEndEditing:" destination="Or0-st-eAl" eventType="editingChanged" id="jJf-CQ-drI"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="FDY-6x-7cW" firstAttribute="trailing" secondItem="VeA-2a-oFv" secondAttribute="trailingMargin" id="JBr-Ia-aix"/>
+                                        <constraint firstItem="FDY-6x-7cW" firstAttribute="leading" secondItem="VeA-2a-oFv" secondAttribute="leadingMargin" id="Mee-MI-m8E"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="FDY-6x-7cW" secondAttribute="bottom" constant="-1.5" id="qDG-kB-olX"/>
+                                        <constraint firstItem="FDY-6x-7cW" firstAttribute="top" secondItem="VeA-2a-oFv" secondAttribute="topMargin" constant="-1" id="xs3-OJ-eqr"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="textField" destination="FDY-6x-7cW" id="ieN-KW-B2o"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="switchCell" id="Vf6-vg-Ito" customClass="SwitchTableViewCell" customModule="MoltinSwiftExample" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Vf6-vg-Ito" id="s3l-Us-c2M">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5na-ZQ-Roh">
+                                            <rect key="frame" x="8" y="6" width="527" height="31"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="TDa-Gj-Run">
+                                            <rect key="frame" x="543" y="6" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="switchChanged:" destination="Vf6-vg-Ito" eventType="valueChanged" id="bEI-Kj-WYm"/>
+                                            </connections>
+                                        </switch>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="TDa-Gj-Run" secondAttribute="bottom" constant="-1.5" id="75J-3c-DFw"/>
+                                        <constraint firstItem="TDa-Gj-Run" firstAttribute="top" secondItem="s3l-Us-c2M" secondAttribute="topMargin" constant="-2" id="92x-rP-e9c"/>
+                                        <constraint firstItem="TDa-Gj-Run" firstAttribute="trailing" secondItem="s3l-Us-c2M" secondAttribute="trailingMargin" id="Fcy-LN-CIJ"/>
+                                        <constraint firstItem="TDa-Gj-Run" firstAttribute="leading" secondItem="5na-ZQ-Roh" secondAttribute="trailing" constant="8" id="R1R-MX-czL"/>
+                                        <constraint firstItem="5na-ZQ-Roh" firstAttribute="leading" secondItem="s3l-Us-c2M" secondAttribute="leadingMargin" id="bZu-di-WxI"/>
+                                        <constraint firstItem="5na-ZQ-Roh" firstAttribute="top" secondItem="s3l-Us-c2M" secondAttribute="topMargin" constant="-2" id="mf7-Z3-6J5"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="5na-ZQ-Roh" secondAttribute="bottom" constant="-1.5" id="ydT-x0-Gce"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="switchLabel" destination="5na-ZQ-Roh" id="Krx-xd-dwW"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="continueButtonCell" id="1uN-Xp-zdP" customClass="ContinueButtonTableViewCell" customModule="MoltinSwiftExample" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1uN-Xp-zdP" id="vTT-cr-hO7">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Continue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s09-BW-hMf">
+                                            <rect key="frame" x="8" y="8" width="584" height="27.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="s09-BW-hMf" firstAttribute="bottom" secondItem="vTT-cr-hO7" secondAttribute="bottomMargin" id="46s-ar-bRt"/>
+                                        <constraint firstItem="s09-BW-hMf" firstAttribute="leading" secondItem="vTT-cr-hO7" secondAttribute="leadingMargin" id="Qwv-DR-65u"/>
+                                        <constraint firstItem="s09-BW-hMf" firstAttribute="top" secondItem="vTT-cr-hO7" secondAttribute="topMargin" id="dIj-Ly-PHh"/>
+                                        <constraint firstItem="s09-BW-hMf" firstAttribute="trailing" secondItem="vTT-cr-hO7" secondAttribute="trailingMargin" id="rDc-N2-G5b"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="Q7e-sY-rBH" id="pIx-sw-oHW"/>
                             <outlet property="delegate" destination="Q7e-sY-rBH" id="xo2-FJ-hHl"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <segue destination="m0W-jE-Y3M" kind="show" identifier="shippingShippingSegue" id="K3X-3L-Cud"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cGz-OE-xJl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2983" y="360"/>
+            <point key="canvasLocation" x="3041" y="354"/>
+        </scene>
+        <!--Shipping Methods-->
+        <scene sceneID="FIN-JG-fRh">
+            <objects>
+                <tableViewController title="Shipping Methods" id="m0W-jE-Y3M" customClass="ShippingTableViewController" customModule="MoltinSwiftExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="BRG-OO-cfT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="shippingMethodCell" rowHeight="60" id="Xfy-GN-yOh" customClass="ShippingMethodTableViewCell" customModule="MoltinSwiftExample" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xfy-GN-yOh" id="SwZ-Xj-MCk">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="£249.99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BOg-by-RJb">
+                                            <rect key="frame" x="511" y="8" width="81" height="43.5"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="81" id="ds3-jn-Jju"/>
+                                                <constraint firstAttribute="width" constant="81" id="vd4-eo-93I"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TwG-W6-5ip">
+                                            <rect key="frame" x="8" y="8" width="495" height="43.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="TwG-W6-5ip" firstAttribute="leading" secondItem="SwZ-Xj-MCk" secondAttribute="leadingMargin" id="7SQ-ff-3Nb"/>
+                                        <constraint firstItem="TwG-W6-5ip" firstAttribute="bottom" secondItem="SwZ-Xj-MCk" secondAttribute="bottomMargin" id="LP3-FS-qVt"/>
+                                        <constraint firstItem="BOg-by-RJb" firstAttribute="trailing" secondItem="SwZ-Xj-MCk" secondAttribute="trailingMargin" id="TQK-QY-BmG"/>
+                                        <constraint firstItem="TwG-W6-5ip" firstAttribute="top" secondItem="SwZ-Xj-MCk" secondAttribute="topMargin" id="VVB-Pf-Hlx"/>
+                                        <constraint firstItem="BOg-by-RJb" firstAttribute="leading" secondItem="TwG-W6-5ip" secondAttribute="trailing" constant="8" id="Xh7-pz-qEm"/>
+                                        <constraint firstItem="BOg-by-RJb" firstAttribute="bottom" secondItem="SwZ-Xj-MCk" secondAttribute="bottomMargin" id="hT2-dk-NCS"/>
+                                        <constraint firstItem="BOg-by-RJb" firstAttribute="top" secondItem="SwZ-Xj-MCk" secondAttribute="topMargin" id="l6w-pT-T90"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="costLabel" destination="BOg-by-RJb" id="Seg-9p-HEj"/>
+                                    <outlet property="methodNameLabel" destination="TwG-W6-5ip" id="ZV8-O4-h0f"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="m0W-jE-Y3M" id="UMG-ia-96c"/>
+                            <outlet property="delegate" destination="m0W-jE-Y3M" id="tci-0N-BlP"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <segue destination="CTI-p2-gAH" kind="show" identifier="paymentSegue" id="VEO-Sx-Sof"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XN1-gW-xQw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3782" y="874"/>
+        </scene>
+        <!--Payment-->
+        <scene sceneID="8cp-cU-Jfy">
+            <objects>
+                <tableViewController title="Payment" id="CTI-p2-gAH" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wpa-tg-kE6">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="textEntryCell" id="jOR-96-lbM" customClass="TextEntryTableViewCell" customModule="MoltinSwiftExample" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jOR-96-lbM" id="cvm-Rm-8fT">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n2R-kd-fmY">
+                                            <rect key="frame" x="8" y="7" width="584" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                            <connections>
+                                                <action selector="textFieldDidEndEditing:" destination="jOR-96-lbM" eventType="editingChanged" id="Z4g-yc-wjU"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="n2R-kd-fmY" firstAttribute="top" secondItem="cvm-Rm-8fT" secondAttribute="topMargin" constant="-1" id="Ezz-Ng-GFa"/>
+                                        <constraint firstItem="n2R-kd-fmY" firstAttribute="leading" secondItem="cvm-Rm-8fT" secondAttribute="leadingMargin" id="JuH-xg-U0d"/>
+                                        <constraint firstItem="n2R-kd-fmY" firstAttribute="trailing" secondItem="cvm-Rm-8fT" secondAttribute="trailingMargin" id="SkV-Sb-mT8"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="n2R-kd-fmY" secondAttribute="bottom" constant="-1.5" id="Y5X-ov-5xh"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="textField" destination="n2R-kd-fmY" id="DHg-Ui-BGy"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="continueButtonCell" id="CGn-mX-pxa" customClass="ContinueButtonTableViewCell" customModule="MoltinSwiftExample" customModuleProvider="target">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CGn-mX-pxa" id="ywN-Vz-HOa">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Buy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v1J-Ze-2iF">
+                                            <rect key="frame" x="8" y="8" width="584" height="27.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="v1J-Ze-2iF" firstAttribute="top" secondItem="ywN-Vz-HOa" secondAttribute="topMargin" id="0mQ-Bq-cei"/>
+                                        <constraint firstItem="v1J-Ze-2iF" firstAttribute="trailing" secondItem="ywN-Vz-HOa" secondAttribute="trailingMargin" id="1qP-KI-sSt"/>
+                                        <constraint firstItem="v1J-Ze-2iF" firstAttribute="bottom" secondItem="ywN-Vz-HOa" secondAttribute="bottomMargin" id="UBS-3f-Bur"/>
+                                        <constraint firstItem="v1J-Ze-2iF" firstAttribute="leading" secondItem="ywN-Vz-HOa" secondAttribute="leadingMargin" id="v5B-Ov-rRO"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="CTI-p2-gAH" id="pME-BX-e0r"/>
+                            <outlet property="delegate" destination="CTI-p2-gAH" id="1mL-04-sOI"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7ik-kr-O6e" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4440" y="874"/>
         </scene>
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="hHa-lv-qoD"/>
+    </inferredMetricsTieBreakers>
 </document>

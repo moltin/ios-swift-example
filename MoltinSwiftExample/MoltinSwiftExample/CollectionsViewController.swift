@@ -44,7 +44,8 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
             SwiftSpinner.hide()
 
             AlertDialog.showAlert("Error", message: "Couldn't load collections", viewController: self)
-
+            println("Something went wrong...")
+            println(error)
         }
         
     }

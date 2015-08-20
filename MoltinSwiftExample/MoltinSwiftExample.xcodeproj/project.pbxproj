@@ -185,6 +185,7 @@
 		BAB1D3F41B7F6D9E000F07A1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = Moltin;
 				TargetAttributes = {

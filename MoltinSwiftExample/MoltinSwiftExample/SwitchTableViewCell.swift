@@ -31,7 +31,7 @@ class SwitchTableViewCell: UITableViewCell {
     
     @IBAction func switchChanged(sender: UISwitch) {
         if (delegate != nil) {
-            delegate?.switchCellSwitched(self, status: sender.on)
+            delegate!.switchCellSwitched(self, status: sender.on)
         }
     }
 

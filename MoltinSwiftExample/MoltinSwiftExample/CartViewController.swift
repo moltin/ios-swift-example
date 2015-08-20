@@ -54,7 +54,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
             // Got cart contents succesfully!
             // Set local var's
             self.cartData = response
-            println(self.cartData)
+            //println(self.cartData)
             
             self.cartProducts = self.cartData?.valueForKeyPath("result.contents") as? NSDictionary
             
@@ -78,7 +78,8 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
                 SwiftSpinner.hide()
 
                 AlertDialog.showAlert("Error", message: "Couldn't load cart", viewController: self)
-                
+                println("Something went wrong...")
+                println(error)
         })
         
         
@@ -162,7 +163,8 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
                 SwiftSpinner.hide()
                 
                 AlertDialog.showAlert("Error", message: "Couldn't update cart", viewController: self)
-
+                println("Something went wrong...")
+                println(error)
         })
     }
     
@@ -187,7 +189,8 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
                 SwiftSpinner.hide()
                 
                 AlertDialog.showAlert("Error", message: "Couldn't update cart", viewController: self)
-                
+                println("Something went wrong...")
+                println(error)
         })
         
         
