@@ -17,7 +17,7 @@ protocol TextEntryTableViewCellDelegate {
 
 class TextEntryTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var textField:UITextField?
+    @IBOutlet weak var textField:DataEntryTextField?
     
     var cellId:String?
     

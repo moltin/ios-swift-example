@@ -21,6 +21,7 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
     private let PRODUCTS_LIST_SEGUE_IDENTIFIER = "productsListSegue"
     
     private var selectedCollectionDict:NSDictionary?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,7 +49,9 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
             println(error)
         }
         
+        
     }
+    
     
     // MARK: - TableView Data source & Delegate
     
@@ -72,6 +75,8 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
         let collectionDictionary = collections?.objectAtIndex(row) as! NSDictionary
         
         cell.setCollectionDictionary(collectionDictionary)
+        
+        
         
         return cell
     }

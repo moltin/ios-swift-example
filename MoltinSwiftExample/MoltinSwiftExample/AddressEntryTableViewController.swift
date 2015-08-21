@@ -176,7 +176,8 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         
         if identifier == countryFieldIdentifier {
             // Make the country field non-editable, and attach the country picker view to it.
-            cell.textField?.inputAccessoryView = countryPickerView
+            cell.textField?.inputView = countryPickerView
+            cell.textField?.setDoneInputAccessoryView()
             cell.hideCursor()
         }
         

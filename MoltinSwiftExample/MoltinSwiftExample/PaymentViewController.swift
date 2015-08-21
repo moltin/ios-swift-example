@@ -107,7 +107,9 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
             cell.textField?.text = cvvNumber
         case 2:
             cell.textField?.placeholder = "Expiry date"
-            cell.textField?.inputAccessoryView = datePicker
+            cell.textField?.inputView = datePicker
+            cell.textField?.setDoneInputAccessoryView()
+
             cell.cellId = "expiryDate"
             
             if (selectedYear != nil) && (selectedMonth != nil) {

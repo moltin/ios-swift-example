@@ -269,7 +269,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dsE-A5-tvS" id="5dy-Fw-NSg">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ny9-2B-K9k">
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ny9-2B-K9k" customClass="DataEntryTextField" customModule="MoltinSwiftExample" customModuleProvider="target">
                                             <rect key="frame" x="8" y="7" width="584" height="30"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                             <textInputTraits key="textInputTraits"/>
@@ -577,7 +577,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Or0-st-eAl" id="VeA-2a-oFv">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FDY-6x-7cW">
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FDY-6x-7cW" customClass="DataEntryTextField" customModule="MoltinSwiftExample" customModuleProvider="target">
                                             <rect key="frame" x="8" y="7" width="584" height="30"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                             <textInputTraits key="textInputTraits"/>
@@ -738,7 +738,7 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jOR-96-lbM" id="cvm-Rm-8fT">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n2R-kd-fmY">
+                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="n2R-kd-fmY" customClass="DataEntryTextField" customModule="MoltinSwiftExample" customModuleProvider="target">
                                             <rect key="frame" x="8" y="7" width="584" height="30"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                             <textInputTraits key="textInputTraits"/>
