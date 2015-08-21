@@ -36,6 +36,11 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
     private var monthsArray = Array<Int>()
     private var yearsArray = Array<String>()
     
+    // Validation constants
+    // Apparently, no credit cards have under 12 or over 19 digits... http://validcreditcardnumbers.info/?p=9
+    let MAX_CVV_LENGTH = 4
+    let MIN_CARD_LENGTH = 12
+    let MAX_CARD_LENGTH = 19
     
     
     override func viewDidLoad() {        
@@ -200,8 +205,24 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
         
     }
     
+    // MARK: - Data validation
+    private func validateData() -> Bool {
+        // Check CVV is all numeric, and < max length
+        if cvvNumber == nil || !cvvNumber!.isNumericString() || count(cvvNumber!) > MAX_CVV_LENGTH {
+            AlertDialog.showAlert("Invalid CVV Number", message: "Please check the CVV number you entered and try again.", viewController: self)
+            
+            return false
+        }
+        
+        // Check card number is all numeric, and < max length but also > min length
+        if cardNumber == nil || !cardNumber!.isNumericString() || count(cardNumber!) > MAX_CARD_LENGTH || count(cardNumber!) < MIN_CARD_LENGTH {
+            AlertDialog.showAlert("Invalid Card Number", message: "Please check the card number you entered and try again.", viewController: self)
 
-
+            return false
+        }
+        
+        return true
+    }
     
     // MARK: - Moltin Order API
     private func completeOrder() {
