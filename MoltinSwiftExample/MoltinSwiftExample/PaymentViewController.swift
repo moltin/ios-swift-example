@@ -140,9 +140,12 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         if indexPath.row == CONTINUE_CELL_ROW_INDEX {
-            // Pay!
+            // Pay! (after a little validation)
             
-            completeOrder()
+            if validateData() {
+                completeOrder()
+            }
+            
         }
     }
     
