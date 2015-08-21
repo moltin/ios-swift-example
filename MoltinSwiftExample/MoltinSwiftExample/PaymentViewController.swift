@@ -68,7 +68,20 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
             let shortYear = NSString(format: "%d", i)
             yearsArray.append(shortYear as String)
         }
-        
+             
+    }
+    
+    private func jumpToCartView(presentSuccess: Bool) {
+        for controller in self.navigationController!.viewControllers {
+            if controller is CartViewController {
+                self.navigationController!.popToViewController(controller as! UIViewController, animated: true)
+                
+                if presentSuccess {
+                    AlertDialog.showAlert("Order Successful", message: "Your order has been succesful, congratulations", viewController: controller as! UIViewController)
+
+                }
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -267,7 +280,8 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
                 
                 SwiftSpinner.hide()
                 
-                AlertDialog.showAlert("Order Successful", message: "Your order has been succesful, congratulations", viewController: self)
+                self.jumpToCartView(true)
+
 
                 
 
