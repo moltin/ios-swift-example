@@ -38,7 +38,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
     
     
     
-    override func viewDidLoad() {
+    override func viewDidLoad() {        
         super.viewDidLoad()
         
         datePicker.delegate = self
@@ -198,6 +198,8 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
         
     }
     
+
+
     
     // MARK: - Moltin Order API
     private func completeOrder() {
@@ -235,11 +237,13 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
             Moltin.sharedInstance().checkout.paymentWithMethod(self.PAYMENT_METHOD, order: orderId, parameters: paymentParameters, success: { (response) -> Void in
                 // Payment successful...
                 println("Payment successful: \(response)")
+            
+                
                 SwiftSpinner.hide()
                 
                 AlertDialog.showAlert("Order Successful", message: "Your order has been succesful, congratulations", viewController: self)
+
                 
-                self.navigationController?.popToRootViewControllerAnimated(true)
 
                 
                 }) { (response, error) -> Void in
@@ -264,14 +268,5 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
         
     }
     
-    
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-        
-    }
     
 }
