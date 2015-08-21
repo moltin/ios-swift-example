@@ -22,7 +22,7 @@ class ShippingTableViewController: UITableViewController {
     var billingDictionary:Dictionary<String, String>?
     var shippingDictionary:Dictionary<String, String>?
     
-    var selectedShippingMethodSlug = ""
+    private var selectedShippingMethodSlug = ""
     
 
     override func viewDidLoad() {

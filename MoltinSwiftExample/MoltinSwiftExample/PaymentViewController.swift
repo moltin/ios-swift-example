@@ -13,28 +13,28 @@ import SwiftSpinner
 class PaymentViewController: UITableViewController, TextEntryTableViewCellDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
     // Replace this constant with your store's payment gateway slug
-    let PAYMENT_GATEWAY = "dummy"
+    private let PAYMENT_GATEWAY = "dummy"
     
-    let PAYMENT_METHOD = "purchase"
+    private let PAYMENT_METHOD = "purchase"
     
     // It needs some pass-through variables too...
     var emailAddress:String?
     var billingDictionary:Dictionary<String, String>?
     var shippingDictionary:Dictionary<String, String>?
     var selectedShippingMethodSlug:String?
-    var cardNumber:String?
-    var cvvNumber:String?
-    var selectedMonth:String?
-    var selectedYear:String?
+    private var cardNumber:String?
+    private var cvvNumber:String?
+    private var selectedMonth:String?
+    private var selectedYear:String?
     
-    let CONTINUE_CELL_ROW_INDEX = 3
+    private let CONTINUE_CELL_ROW_INDEX = 3
     
-    let cardNumberIdentifier = "cardNumber"
-    let cvvNumberIdentifier = "cvvNumber"
+    private let cardNumberIdentifier = "cardNumber"
+    private let cvvNumberIdentifier = "cvvNumber"
     
-    let datePicker = UIPickerView()
-    var monthsArray = Array<Int>()
-    var yearsArray = Array<String>()
+    private let datePicker = UIPickerView()
+    private var monthsArray = Array<Int>()
+    private var yearsArray = Array<String>()
     
     
     
