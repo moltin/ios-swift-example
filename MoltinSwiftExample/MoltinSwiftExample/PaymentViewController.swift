@@ -55,10 +55,12 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
         let components = NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitYear, fromDate: NSDate())
         let currentYear = components.year
         let currentShortYear = (NSString(format: "%d", currentYear).substringFromIndex(2) as NSString)
+        selectedYear = String(format: "%d", currentYear)
+
         let shortYearNumber = currentShortYear.intValue
         let maxYear = shortYearNumber + 5
         for i in shortYearNumber...maxYear {
-            let shortYear = (NSString(format: "%d", i).substringFromIndex(2) as NSString)
+            let shortYear = NSString(format: "%d", i)
             yearsArray.append(shortYear as String)
         }
         
@@ -97,15 +99,24 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
             cell.textField?.placeholder = "Card number"
             cell.textField?.keyboardType = UIKeyboardType.NumberPad
             cell.cellId = cardNumberIdentifier
-            
+            cell.textField?.text = cardNumber
         case 1:
             cell.textField?.placeholder = "CVV number"
             cell.textField?.keyboardType = UIKeyboardType.NumberPad
             cell.cellId = cvvNumberIdentifier
+            cell.textField?.text = cvvNumber
         case 2:
             cell.textField?.placeholder = "Expiry date"
             cell.textField?.inputAccessoryView = datePicker
             cell.cellId = "expiryDate"
+            
+            if (selectedYear != nil) && (selectedMonth != nil) {
+                let shortYearNumber = (selectedYear! as NSString).intValue
+                let shortYear = (NSString(format: "%d", shortYearNumber).substringFromIndex(2) as NSString)
+                let formattedDate = String(format: "%@/%@", selectedMonth!, shortYear)
+                cell.textField?.text = formattedDate
+            }
+            
             cell.hideCursor()
         default:
             cell.textField?.placeholder = ""
@@ -132,6 +143,13 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
     func textEnteredInCell(cell: TextEntryTableViewCell, cellId:String, text: String) {
         let cellId = cell.cellId!
         
+        if cellId == cardNumberIdentifier {
+            cardNumber = text
+        }
+        
+        if cellId == cvvNumberIdentifier {
+            cvvNumber = text
+        }
         
     }
     
@@ -166,9 +184,20 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
+        if component == 0 {
+            // Month selected
+            selectedMonth = String(format: "%d", monthsArray[row])
+            
+        } else {
+            // Year selected
+            // WARNING: The following code won't work past year 2100.
+            selectedYear = "20" + yearsArray[row]
+        }
+        
         self.tableView.reloadData()
         
     }
+    
     
     // MARK: - Moltin Order API
     private func completeOrder() {
