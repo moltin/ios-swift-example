@@ -57,7 +57,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
         }
         
         // Populate years
-        let components = NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitYear, fromDate: NSDate())
+        let components = NSCalendar.currentCalendar().components(NSCalendarUnit.Year, fromDate: NSDate())
         let currentYear = components.year
         let currentShortYear = (NSString(format: "%d", currentYear).substringFromIndex(2) as NSString)
         selectedYear = String(format: "%d", currentYear)
@@ -74,10 +74,10 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
     private func jumpToCartView(presentSuccess: Bool) {
         for controller in self.navigationController!.viewControllers {
             if controller is CartViewController {
-                self.navigationController!.popToViewController(controller as! UIViewController, animated: true)
+                self.navigationController!.popToViewController(controller , animated: true)
                 
                 if presentSuccess {
-                    AlertDialog.showAlert("Order Successful", message: "Your order has been succesful, congratulations", viewController: controller as! UIViewController)
+                    AlertDialog.showAlert("Order Successful", message: "Your order has been succesful, congratulations", viewController: controller )
 
                 }
             }
@@ -224,14 +224,14 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
     // MARK: - Data validation
     private func validateData() -> Bool {
         // Check CVV is all numeric, and < max length
-        if cvvNumber == nil || !cvvNumber!.isNumericString() || count(cvvNumber!) > MAX_CVV_LENGTH {
+        if cvvNumber == nil || !cvvNumber!.isNumericString() || (cvvNumber!).characters.count > MAX_CVV_LENGTH {
             AlertDialog.showAlert("Invalid CVV Number", message: "Please check the CVV number you entered and try again.", viewController: self)
             
             return false
         }
         
         // Check card number is all numeric, and < max length but also > min length
-        if cardNumber == nil || !cardNumber!.isNumericString() || count(cardNumber!) > MAX_CARD_LENGTH || count(cardNumber!) < MIN_CARD_LENGTH {
+        if cardNumber == nil || !cardNumber!.isNumericString() || (cardNumber!).characters.count > MAX_CARD_LENGTH || (cardNumber!).characters.count < MIN_CARD_LENGTH {
             AlertDialog.showAlert("Invalid Card Number", message: "Please check the card number you entered and try again.", viewController: self)
 
             return false

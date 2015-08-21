@@ -167,7 +167,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         
         // Configure the cell...
         cell.textField?.placeholder = contactFieldsArray[indexPath.row]["name"]!
-        var identifier = contactFieldsArray[indexPath.row]["identifier"]!
+        let identifier = contactFieldsArray[indexPath.row]["identifier"]!
         cell.cellId = identifier
         cell.delegate = self
         
@@ -187,7 +187,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         }
         
         if let existingEntry = dict![identifier] {
-            if count(existingEntry) > 0 {
+            if existingEntry.characters.count > 0 {
                 cell.textField?.text = existingEntry
             }
         }
@@ -274,7 +274,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
                 // success
                 valuePresent = true
                 var stringValue = value as String
-                if count(stringValue) < 1 {
+                if stringValue.characters.count < 1 {
                     // The string's empty!
                     lengthValid = true
                 }
@@ -429,7 +429,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
             newViewController.billingDictionary = billingDict
             newViewController.shippingDictionary = shippingDict
             
-            println("shippingDict = \(shippingDict)")
+            print("shippingDict = \(shippingDict)")
             
             newViewController.emailAddress = emailAddress!
         }
