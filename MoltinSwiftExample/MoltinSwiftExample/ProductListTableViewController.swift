@@ -52,9 +52,12 @@ class ProductListTableViewController: UITableViewController {
             // Let's use this response!
             SwiftSpinner.hide()
             
+            
             if let newProducts:NSArray = response["result"] as? NSArray {
                 self.products.addObjectsFromArray(newProducts as [AnyObject])
+                
             }
+            
             
             let responseDictionary = response as NSDictionary
             
