@@ -102,9 +102,9 @@ class ShippingTableViewController: UITableViewController {
         if segue.identifier == PAYMENT_SEGUE {
             // Setup payment view...
             let paymentView = segue.destinationViewController as! PaymentViewController
-            paymentView.billingDictionary = self.billingDictionary
-            paymentView.shippingDictionary = self.shippingDictionary
-            paymentView.emailAddress = self.emailAddress
+            paymentView.billingDictionary = self.billingDictionary!
+            paymentView.shippingDictionary = self.shippingDictionary!
+            paymentView.emailAddress = self.emailAddress!
             paymentView.selectedShippingMethodSlug = self.selectedShippingMethodSlug
         }
         

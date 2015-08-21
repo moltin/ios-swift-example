@@ -119,6 +119,8 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
         if indexPath.row == CONTINUE_CELL_ROW_INDEX {
             // Pay!
             
@@ -171,6 +173,9 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
     // MARK: - Moltin Order API
     private func completeOrder() {
         
+        // Show some loading UI...
+        SwiftSpinner.show("Completing Purchase")
+        
         let firstName = billingDictionary!["first_name"]! as String
         let lastName = billingDictionary!["last_name"]! as String
         
@@ -190,27 +195,41 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
             
             // Extract the Order ID so that it can be used in payment too...
             let orderId = (response as NSDictionary).valueForKeyPath("result.id") as! String
-            
-            let paymentParameters = ["number": "4242424242424242",
-                "expiry_month": "02",
-                "expiry_year":  "2017",
-                "cvv":          "123"
-                ] as [NSObject: AnyObject]
+            println("Order ID: \(orderId)")
+
+            let paymentParameters = ["data": ["number": self.cardNumber!,
+                "expiry_month": self.selectedMonth!,
+                "expiry_year":  self.selectedYear!,
+                "cvv":          self.cvvNumber!
+                ]] as [NSObject: AnyObject]
             
             Moltin.sharedInstance().checkout.paymentWithMethod(self.PAYMENT_METHOD, order: orderId, parameters: paymentParameters, success: { (response) -> Void in
                 // Payment successful...
                 println("Payment successful: \(response)")
+                SwiftSpinner.hide()
+                
+                AlertDialog.showAlert("Order Successful", message: "Your order has been succesful, congratulations", viewController: self)
+                
+                self.navigationController?.popToRootViewControllerAnimated(true)
+
                 
                 }) { (response, error) -> Void in
                     // Payment error
                     println("Payment error: \(error)")
+                    SwiftSpinner.hide()
+                    AlertDialog.showAlert("Payment Failed", message: "Payment failed - please try again", viewController: self)
+
+
             }
             
-            println("Order ID: \(orderId)")
             
             }) { (response, error) -> Void in
                 // Order failed
                 println("Order error: \(error)")
+                SwiftSpinner.hide()
+                
+                AlertDialog.showAlert("Order Failed", message: "Order failed - please try again", viewController: self)
+
         }
         
         
@@ -223,6 +242,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        
     }
     
 }

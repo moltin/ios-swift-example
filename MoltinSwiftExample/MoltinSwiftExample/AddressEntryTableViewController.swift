@@ -235,9 +235,9 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         let selectedCountry = countryArray![row]["name"]!
         
         if isShippingAddress {
-            shippingDictionary?[countryFieldIdentifier] = selectedCountry
+            shippingDictionary![countryFieldIdentifier] = selectedCountry
         } else {
-            billingDictionary?[countryFieldIdentifier] = selectedCountry
+            billingDictionary![countryFieldIdentifier] = selectedCountry
         }
         
         self.tableView.reloadData()
@@ -404,24 +404,33 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         // Pass the selected object to the new view controller.
         
         
-        var billingDict:Dictionary<String, String>
-        var shippingDict:Dictionary<String, String>
+        // (initialising these to blanks here to silence Swift's warnings in the segue preperation later on - it doesn't trust that these have been initialised when they in fact WILL have by the time that segue is ever used).
+        var billingDict = Dictionary<String, String>()
+        var shippingDict = Dictionary<String, String>()
         
         if isShippingAddress {
             billingDict = billingDictionary!
             shippingDict = getAddressDict()
         } else {
             billingDict = getAddressDict()
+            
 
         }
         
         if useSameShippingAddress {
             shippingDict = billingDict
         }
+
         
         if segue.identifier == SHIPPING_ADDRESS_SHIPPING_SEGUE || segue.identifier == BILLING_ADDRESS_SHIPPING_SEGUE {
             // Set up the shipping address view's address variables...
+            let newViewController = segue.destinationViewController as! ShippingTableViewController
+            newViewController.billingDictionary = billingDict
+            newViewController.shippingDictionary = shippingDict
             
+            println("shippingDict = \(shippingDict)")
+            
+            newViewController.emailAddress = emailAddress!
         }
         
         if segue.identifier == SHIPPING_ADDRESS_SEGUE {
