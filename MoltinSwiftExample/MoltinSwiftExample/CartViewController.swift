@@ -78,8 +78,8 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
                 SwiftSpinner.hide()
 
                 AlertDialog.showAlert("Error", message: "Couldn't load cart", viewController: self)
-                println("Something went wrong...")
-                println(error)
+                print("Something went wrong...")
+                print(error)
         })
         
         
@@ -163,8 +163,8 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
                 SwiftSpinner.hide()
                 
                 AlertDialog.showAlert("Error", message: "Couldn't update cart", viewController: self)
-                println("Something went wrong...")
-                println(error)
+                print("Something went wrong...")
+                print(error)
         })
     }
     
@@ -189,8 +189,8 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
                 SwiftSpinner.hide()
                 
                 AlertDialog.showAlert("Error", message: "Couldn't update cart", viewController: self)
-                println("Something went wrong...")
-                println(error)
+                print("Something went wrong...")
+                print(error)
         })
         
         

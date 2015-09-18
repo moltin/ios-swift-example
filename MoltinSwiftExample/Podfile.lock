@@ -1,51 +1,51 @@
 PODS:
-  - AFNetworking (2.5.4):
-    - AFNetworking/NSURLConnection (= 2.5.4)
-    - AFNetworking/NSURLSession (= 2.5.4)
-    - AFNetworking/Reachability (= 2.5.4)
-    - AFNetworking/Security (= 2.5.4)
-    - AFNetworking/Serialization (= 2.5.4)
-    - AFNetworking/UIKit (= 2.5.4)
-  - AFNetworking/NSURLConnection (2.5.4):
+  - AFNetworking (2.6.0):
+    - AFNetworking/NSURLConnection (= 2.6.0)
+    - AFNetworking/NSURLSession (= 2.6.0)
+    - AFNetworking/Reachability (= 2.6.0)
+    - AFNetworking/Security (= 2.6.0)
+    - AFNetworking/Serialization (= 2.6.0)
+    - AFNetworking/UIKit (= 2.6.0)
+  - AFNetworking/NSURLConnection (2.6.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.5.4):
+  - AFNetworking/NSURLSession (2.6.0):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.5.4)
-  - AFNetworking/Security (2.5.4)
-  - AFNetworking/Serialization (2.5.4)
-  - AFNetworking/UIKit (2.5.4):
+  - AFNetworking/Reachability (2.6.0)
+  - AFNetworking/Security (2.6.0)
+  - AFNetworking/Serialization (2.6.0)
+  - AFNetworking/UIKit (2.6.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - Moltin (0.0.1):
+  - Moltin (1.0.2):
     - AFNetworking
   - SDWebImage (3.7.3):
     - SDWebImage/Core (= 3.7.3)
   - SDWebImage/Core (3.7.3)
-  - SwiftSpinner (0.7.0)
+  - SwiftSpinner (0.8.0)
 
 DEPENDENCIES:
-  - Moltin (from `https://github.com/moltin/ios-sdk.git`, branch `inhouse-dev`)
+  - Moltin (from `https://github.com/moltin/ios-sdk.git`, branch `master`)
   - SDWebImage (~> 3.7)
   - SwiftSpinner
 
 EXTERNAL SOURCES:
   Moltin:
-    :branch: inhouse-dev
+    :branch: master
     :git: https://github.com/moltin/ios-sdk.git
 
 CHECKOUT OPTIONS:
   Moltin:
-    :commit: d7e5fa86ad4190a5977fc340fd3544859be8be4a
+    :commit: 82d602733a45a567a2d9f0cfa4182a35cb8f1fef
     :git: https://github.com/moltin/ios-sdk.git
 
 SPEC CHECKSUMS:
-  AFNetworking: 05edc0ac4c4c8cf57bcf4b84be5b0744b6d8e71e
-  Moltin: 46c4eec862d57fefc39b0a701ca1bfa80c704a7a
+  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
+  Moltin: 5758d950db2c2cdec7a0c4d2f4e3f846882bd0a9
   SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
-  SwiftSpinner: 034bb8b00675b3e4f4c97531fa9af3f550462192
+  SwiftSpinner: 11c2c5ec7443d92f3026d3067ca8a91d4adef13f
 
 COCOAPODS: 0.38.1

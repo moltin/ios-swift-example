@@ -37,7 +37,7 @@ class TextEntryTableViewCell: UITableViewCell {
     
     @IBAction func textFieldDidEndEditing(textField: UITextField) {
         if delegate != nil {
-            delegate!.textEnteredInCell(self, cellId: cellId!, text: textField.text)
+            delegate!.textEnteredInCell(self, cellId: cellId!, text: textField.text!)
         }
 
     }

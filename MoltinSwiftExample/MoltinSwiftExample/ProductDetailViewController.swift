@@ -75,8 +75,8 @@ class ProductDetailViewController: UIViewController {
             SwiftSpinner.hide()
             
             AlertDialog.showAlert("Error", message: "Couldn't add product to the cart", viewController: self)
-            println("Something went wrong...")
-            println(error)
+            print("Something went wrong...")
+            print(error)
         }
         
     }

@@ -193,7 +193,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
         }
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if component == 0 {
             return String(format: "%d", monthsArray[row])
@@ -261,11 +261,11 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
         
         Moltin.sharedInstance().cart.orderWithParameters(orderParameters, success: { (response) -> Void in
             // Order succesful
-            println("Order succeeded: \(response)")
+            print("Order succeeded: \(response)")
             
             // Extract the Order ID so that it can be used in payment too...
             let orderId = (response as NSDictionary).valueForKeyPath("result.id") as! String
-            println("Order ID: \(orderId)")
+            print("Order ID: \(orderId)")
 
             let paymentParameters = ["data": ["number": self.cardNumber!,
                 "expiry_month": self.selectedMonth!,
@@ -275,7 +275,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
             
             Moltin.sharedInstance().checkout.paymentWithMethod(self.PAYMENT_METHOD, order: orderId, parameters: paymentParameters, success: { (response) -> Void in
                 // Payment successful...
-                println("Payment successful: \(response)")
+                print("Payment successful: \(response)")
             
                 
                 SwiftSpinner.hide()
@@ -288,7 +288,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
                 
                 }) { (response, error) -> Void in
                     // Payment error
-                    println("Payment error: \(error)")
+                    print("Payment error: \(error)")
                     SwiftSpinner.hide()
                     AlertDialog.showAlert("Payment Failed", message: "Payment failed - please try again", viewController: self)
 
@@ -298,7 +298,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
             
             }) { (response, error) -> Void in
                 // Order failed
-                println("Order error: \(error)")
+                print("Order error: \(error)")
                 SwiftSpinner.hide()
                 
                 AlertDialog.showAlert("Order Failed", message: "Order failed - please try again", viewController: self)

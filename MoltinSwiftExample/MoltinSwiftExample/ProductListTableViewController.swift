@@ -82,8 +82,8 @@ class ProductListTableViewController: UITableViewController {
             
             AlertDialog.showAlert("Error", message: "Couldn't load products", viewController: self)
 
-            println("Something went wrong...")
-            println(error)
+            print("Something went wrong...")
+            print(error)
         }
         
     }
