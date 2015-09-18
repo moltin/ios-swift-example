@@ -101,7 +101,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
                 }
                 
                 // Sort alphabetically by country name
-                self.countryArray? = self.countryArray!.sorted({ $0["name"] < $1["name"]})
+                self.countryArray? = self.countryArray!.sort({ $0["name"] < $1["name"]})
                 
                 // and hide loading UI.
                 SwiftSpinner.hide()
@@ -112,8 +112,8 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
                     SwiftSpinner.hide()
 
                     AlertDialog.showAlert("Error", message: "Sorry, could not load countries", viewController: self)
-                    println("Something went wrong...")
-                    println(error)
+                    print("Something went wrong...")
+                    print(error)
             })
         }
         
@@ -167,7 +167,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         
         // Configure the cell...
         cell.textField?.placeholder = contactFieldsArray[indexPath.row]["name"]!
-        var identifier = contactFieldsArray[indexPath.row]["identifier"]!
+        let identifier = contactFieldsArray[indexPath.row]["identifier"]!
         cell.cellId = identifier
         cell.delegate = self
         
@@ -187,7 +187,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         }
         
         if let existingEntry = dict![identifier] {
-            if count(existingEntry) > 0 {
+            if existingEntry.characters.count > 0 {
                 cell.textField?.text = existingEntry
             }
         }
@@ -220,7 +220,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         return countryArray!.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
 
         return countryArray![row]["name"]
     }
@@ -273,8 +273,8 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
             if let value = sourceDict[field] {
                 // success
                 valuePresent = true
-                var stringValue = value as String
-                if count(stringValue) < 1 {
+                let stringValue = value as String
+                if stringValue.characters.count < 1 {
                     // The string's empty!
                     lengthValid = true
                 }
@@ -429,7 +429,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
             newViewController.billingDictionary = billingDict
             newViewController.shippingDictionary = shippingDict
             
-            println("shippingDict = \(shippingDict)")
+            print("shippingDict = \(shippingDict)")
             
             newViewController.emailAddress = emailAddress!
         }

@@ -57,7 +57,7 @@ class CartTableViewCell: UITableViewCell {
         itemPriceLabel?.text = itemDict.valueForKeyPath("totals.post_discount.formatted.with_tax") as? String
         
         if let qty:NSNumber = itemDict.valueForKeyPath("quantity") as? NSNumber {
-            let itemQuantityText = "Qty. \(qty.integerValue)"
+            _ = "Qty. \(qty.integerValue)"
             self.itemQuantityStepper?.value = qty.doubleValue
         }
         

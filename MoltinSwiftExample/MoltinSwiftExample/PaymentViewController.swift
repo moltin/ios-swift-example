@@ -57,7 +57,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
         }
         
         // Populate years
-        let components = NSCalendar.currentCalendar().components(NSCalendarUnit.CalendarUnitYear, fromDate: NSDate())
+        let components = NSCalendar.currentCalendar().components(NSCalendarUnit.Year, fromDate: NSDate())
         let currentYear = components.year
         let currentShortYear = (NSString(format: "%d", currentYear).substringFromIndex(2) as NSString)
         selectedYear = String(format: "%d", currentYear)
@@ -74,10 +74,10 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
     private func jumpToCartView(presentSuccess: Bool) {
         for controller in self.navigationController!.viewControllers {
             if controller is CartViewController {
-                self.navigationController!.popToViewController(controller as! UIViewController, animated: true)
+                self.navigationController!.popToViewController(controller , animated: true)
                 
                 if presentSuccess {
-                    AlertDialog.showAlert("Order Successful", message: "Your order has been succesful, congratulations", viewController: controller as! UIViewController)
+                    AlertDialog.showAlert("Order Successful", message: "Your order has been succesful, congratulations", viewController: controller )
 
                 }
             }
@@ -193,7 +193,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
         }
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if component == 0 {
             return String(format: "%d", monthsArray[row])
@@ -224,14 +224,14 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
     // MARK: - Data validation
     private func validateData() -> Bool {
         // Check CVV is all numeric, and < max length
-        if cvvNumber == nil || !cvvNumber!.isNumericString() || count(cvvNumber!) > MAX_CVV_LENGTH {
+        if cvvNumber == nil || !cvvNumber!.isNumericString() || (cvvNumber!).characters.count > MAX_CVV_LENGTH {
             AlertDialog.showAlert("Invalid CVV Number", message: "Please check the CVV number you entered and try again.", viewController: self)
             
             return false
         }
         
         // Check card number is all numeric, and < max length but also > min length
-        if cardNumber == nil || !cardNumber!.isNumericString() || count(cardNumber!) > MAX_CARD_LENGTH || count(cardNumber!) < MIN_CARD_LENGTH {
+        if cardNumber == nil || !cardNumber!.isNumericString() || (cardNumber!).characters.count > MAX_CARD_LENGTH || (cardNumber!).characters.count < MIN_CARD_LENGTH {
             AlertDialog.showAlert("Invalid Card Number", message: "Please check the card number you entered and try again.", viewController: self)
 
             return false
@@ -261,11 +261,11 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
         
         Moltin.sharedInstance().cart.orderWithParameters(orderParameters, success: { (response) -> Void in
             // Order succesful
-            println("Order succeeded: \(response)")
+            print("Order succeeded: \(response)")
             
             // Extract the Order ID so that it can be used in payment too...
             let orderId = (response as NSDictionary).valueForKeyPath("result.id") as! String
-            println("Order ID: \(orderId)")
+            print("Order ID: \(orderId)")
 
             let paymentParameters = ["data": ["number": self.cardNumber!,
                 "expiry_month": self.selectedMonth!,
@@ -275,7 +275,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
             
             Moltin.sharedInstance().checkout.paymentWithMethod(self.PAYMENT_METHOD, order: orderId, parameters: paymentParameters, success: { (response) -> Void in
                 // Payment successful...
-                println("Payment successful: \(response)")
+                print("Payment successful: \(response)")
             
                 
                 SwiftSpinner.hide()
@@ -288,7 +288,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
                 
                 }) { (response, error) -> Void in
                     // Payment error
-                    println("Payment error: \(error)")
+                    print("Payment error: \(error)")
                     SwiftSpinner.hide()
                     AlertDialog.showAlert("Payment Failed", message: "Payment failed - please try again", viewController: self)
 
@@ -298,7 +298,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
             
             }) { (response, error) -> Void in
                 // Order failed
-                println("Order error: \(error)")
+                print("Order error: \(error)")
                 SwiftSpinner.hide()
                 
                 AlertDialog.showAlert("Order Failed", message: "Order failed - please try again", viewController: self)
