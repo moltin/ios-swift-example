@@ -2,7 +2,7 @@ platform :ios, '8.0'
 
 target 'MoltinSwiftExample' do
   pod 'Moltin', :git => 'https://github.com/moltin/ios-sdk.git', :branch => 'master'
-  pod 'SwiftSpinner'
+  pod 'SwiftSpinner', '~>1.0.2'
   pod 'SDWebImage', '~>3.7'
 end
 

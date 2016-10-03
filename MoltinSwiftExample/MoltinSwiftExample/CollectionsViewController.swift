@@ -14,13 +14,13 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
     
     @IBOutlet weak var tableView:UITableView?
     
-    private var collections:NSArray?
+    fileprivate var collections:NSArray?
     
-    private let COLLECTION_CELL_REUSE_IDENTIFIER = "CollectionCell"
+    fileprivate let COLLECTION_CELL_REUSE_IDENTIFIER = "CollectionCell"
     
-    private let PRODUCTS_LIST_SEGUE_IDENTIFIER = "productsListSegue"
+    fileprivate let PRODUCTS_LIST_SEGUE_IDENTIFIER = "productsListSegue"
     
-    private var selectedCollectionDict:NSDictionary?
+    fileprivate var selectedCollectionDict:NSDictionary?
     
 
     override func viewDidLoad() {
@@ -32,11 +32,11 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
         SwiftSpinner.show("Loading Collections")
         
         // Get collections, async
-        Moltin.sharedInstance().collection.listingWithParameters(["status": NSNumber(int: 1), "limit": NSNumber(int: 20)], success: { (response) -> Void in
+        Moltin.sharedInstance().collection.listing(withParameters: ["status": NSNumber(value: 1), "limit": NSNumber(value: 20)], success: { (response) -> Void in
             // We have collections - show them!
             SwiftSpinner.hide()
             
-            self.collections = response["result"] as? NSArray
+            self.collections = response?["result"] as? NSArray
             
             self.tableView?.reloadData()
             
@@ -55,11 +55,11 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
     
     // MARK: - TableView Data source & Delegate
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if collections != nil {
             return collections!.count
         }
@@ -67,12 +67,12 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
         return 0
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(COLLECTION_CELL_REUSE_IDENTIFIER, forIndexPath: indexPath) as! CollectionTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: COLLECTION_CELL_REUSE_IDENTIFIER, for: indexPath) as! CollectionTableViewCell
         
-        let row = indexPath.row
+        let row = (indexPath as NSIndexPath).row
         
-        let collectionDictionary = collections?.objectAtIndex(row) as! NSDictionary
+        let collectionDictionary = collections?.object(at: row) as! NSDictionary
         
         cell.setCollectionDictionary(collectionDictionary)
         
@@ -81,27 +81,27 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
-        selectedCollectionDict = collections?.objectAtIndex(indexPath.row) as? NSDictionary
+        selectedCollectionDict = collections?.object(at: (indexPath as NSIndexPath).row) as? NSDictionary
 
-        performSegueWithIdentifier(PRODUCTS_LIST_SEGUE_IDENTIFIER, sender: self)
+        performSegue(withIdentifier: PRODUCTS_LIST_SEGUE_IDENTIFIER, sender: self)
 
         
     }
     
-    func tableView(_tableView: UITableView,
-        willDisplayCell cell: UITableViewCell,
-        forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ _tableView: UITableView,
+        willDisplay cell: UITableViewCell,
+        forRowAt indexPath: IndexPath) {
             
-            if cell.respondsToSelector("setSeparatorInset:") {
-                cell.separatorInset = UIEdgeInsetsZero
+            if cell.responds(to: #selector(setter: UITableViewCell.separatorInset)) {
+                cell.separatorInset = UIEdgeInsets.zero
             }
-            if cell.respondsToSelector("setLayoutMargins:") {
-                cell.layoutMargins = UIEdgeInsetsZero
+            if cell.responds(to: #selector(setter: UIView.layoutMargins)) {
+                cell.layoutMargins = UIEdgeInsets.zero
             }
-            if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
+            if cell.responds(to: #selector(setter: UIView.preservesSuperviewLayoutMargins)) {
                 cell.preservesSuperviewLayoutMargins = false
             }
     }
@@ -109,16 +109,16 @@ class CollectionsViewController: UIViewController, UITableViewDataSource, UITabl
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         
         if segue.identifier == PRODUCTS_LIST_SEGUE_IDENTIFIER {
             // Set up products list view!
-            let newViewController = segue.destinationViewController as! ProductListTableViewController
+            let newViewController = segue.destination as! ProductListTableViewController
             
-            newViewController.title = selectedCollectionDict!.valueForKey("title") as? String
-            newViewController.collectionId = selectedCollectionDict!.valueForKeyPath("id") as? String
+            newViewController.title = selectedCollectionDict!.value(forKey: "title") as? String
+            newViewController.collectionId = selectedCollectionDict!.value(forKeyPath: "id") as? String
             
         }
         

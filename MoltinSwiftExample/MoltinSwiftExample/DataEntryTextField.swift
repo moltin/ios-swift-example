@@ -19,11 +19,11 @@ class DataEntryTextField: UITextField {
     */
     
     func setDoneInputAccessoryView() {
-        let toolbar = UIToolbar(frame: CGRectMake(0, 0, self.frame.size.width, 44))
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: 44))
         
-        let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: self, action: nil)
+        let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil)
         
-        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "btnDoneTap:")
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(DataEntryTextField.btnDoneTap(_:)))
 
         
         toolbar.setItems([space, doneButton], animated: true)
@@ -32,7 +32,7 @@ class DataEntryTextField: UITextField {
         
     }
     
-    func btnDoneTap(sender: AnyObject) {
+    func btnDoneTap(_ sender: AnyObject) {
         resignFirstResponder()
     }
 

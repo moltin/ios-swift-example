@@ -19,28 +19,28 @@ class ProductsListTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    func configureWithProduct(productDict: NSDictionary) {
+    func configureWithProduct(_ productDict: NSDictionary) {
         // Setup the cell with information provided in productDict.
-        productNameLabel?.text = productDict.valueForKey("title") as? String
+        productNameLabel?.text = productDict.value(forKey: "title") as? String
         
-        productPriceLabel?.text = productDict.valueForKeyPath("price.data.formatted.with_tax") as? String
+        productPriceLabel?.text = productDict.value(forKeyPath: "price.data.formatted.with_tax") as? String
         
         var imageUrl = ""
         
-        if let images = productDict.objectForKey("images") as? NSArray {
+        if let images = productDict.object(forKey: "images") as? NSArray {
             if (images.firstObject != nil) {
-                imageUrl = images.firstObject?.valueForKeyPath("url.https") as! String
+                imageUrl = (images.firstObject as AnyObject).value(forKeyPath: "url.https") as! String
             }
             
         }
 
-        productImageView?.sd_setImageWithURL(NSURL(string: imageUrl))
+        productImageView?.sd_setImage(with: URL(string: imageUrl))
         
         
     }

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9CF44736B2A055F8B90CDDC5 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C016F393761A3A38D2F0FE9 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		9651F25CDDDB591CF7E76AFB /* Pods_MoltinSwiftExample.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DA3ED1809EC21A062C2BC85D /* Pods_MoltinSwiftExample.framework */; };
 		BA0403621B820FF200ED8063 /* ShippingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0403611B820FF200ED8063 /* ShippingTableViewController.swift */; };
 		BA0403641B8211FB00ED8063 /* ShippingMethodTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0403631B8211FB00ED8063 /* ShippingMethodTableViewCell.swift */; };
 		BA0403661B822C7A00ED8063 /* TextEntryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0403651B822C7A00ED8063 /* TextEntryTableViewCell.swift */; };
@@ -33,8 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		325A32BB88BC1E472AE5CE6B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		71230C33033D5E156D2CE96B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		52363A3DAD62B5E9E3126802 /* Pods-MoltinSwiftExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoltinSwiftExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-MoltinSwiftExample/Pods-MoltinSwiftExample.release.xcconfig"; sourceTree = "<group>"; };
+		8C788A53F21ECC575E53E53F /* Pods-MoltinSwiftExample.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MoltinSwiftExample.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MoltinSwiftExample/Pods-MoltinSwiftExample.debug.xcconfig"; sourceTree = "<group>"; };
 		9C016F393761A3A38D2F0FE9 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA0403611B820FF200ED8063 /* ShippingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingTableViewController.swift; sourceTree = "<group>"; };
 		BA0403631B8211FB00ED8063 /* ShippingMethodTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShippingMethodTableViewCell.swift; sourceTree = "<group>"; };
@@ -61,6 +61,7 @@
 		BAB1D4231B7F6F5E000F07A1 /* Project-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Project-Bridging-Header.h"; sourceTree = "<group>"; };
 		BAE268111B83CBC9006E6DE6 /* ContinueButtonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueButtonTableViewCell.swift; sourceTree = "<group>"; };
 		BAE268131B83DDC7006E6DE6 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
+		DA3ED1809EC21A062C2BC85D /* Pods_MoltinSwiftExample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MoltinSwiftExample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,18 +69,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CF44736B2A055F8B90CDDC5 /* Pods.framework in Frameworks */,
+				9651F25CDDDB591CF7E76AFB /* Pods_MoltinSwiftExample.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		96053FF4F5A60AD2C5B8E7CA /* Pods */ = {
+		46076447C5D3C0E72A6A554E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				71230C33033D5E156D2CE96B /* Pods.debug.xcconfig */,
-				325A32BB88BC1E472AE5CE6B /* Pods.release.xcconfig */,
+				8C788A53F21ECC575E53E53F /* Pods-MoltinSwiftExample.debug.xcconfig */,
+				52363A3DAD62B5E9E3126802 /* Pods-MoltinSwiftExample.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -119,8 +120,8 @@
 			children = (
 				BAB1D3FE1B7F6D9E000F07A1 /* MoltinSwiftExample */,
 				BAB1D3FD1B7F6D9E000F07A1 /* Products */,
-				96053FF4F5A60AD2C5B8E7CA /* Pods */,
 				F2483C18BCFF6CAB5D2153D1 /* Frameworks */,
+				46076447C5D3C0E72A6A554E /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -161,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				9C016F393761A3A38D2F0FE9 /* Pods.framework */,
+				DA3ED1809EC21A062C2BC85D /* Pods_MoltinSwiftExample.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -172,12 +174,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BAB1D41D1B7F6D9E000F07A1 /* Build configuration list for PBXNativeTarget "MoltinSwiftExample" */;
 			buildPhases = (
-				65C3C8B8ABC02B2F4A4D7086 /* Check Pods Manifest.lock */,
+				BCFA5F35014F7907A85EF47A /* 📦 Check Pods Manifest.lock */,
 				BAB1D3F81B7F6D9E000F07A1 /* Sources */,
 				BAB1D3F91B7F6D9E000F07A1 /* Frameworks */,
 				BAB1D3FA1B7F6D9E000F07A1 /* Resources */,
-				984084574162899564F77DEF /* Copy Pods Resources */,
-				8C3ADD75E2752D138339F64C /* Embed Pods Frameworks */,
+				A96A828B723440D89CAE9540 /* 📦 Embed Pods Frameworks */,
+				C7984EEE83C8C19EBE66A205 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -196,11 +198,12 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = Moltin;
 				TargetAttributes = {
 					BAB1D3FB1B7F6D9E000F07A1 = {
 						CreatedOnToolsVersion = 6.4;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -236,14 +239,29 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		65C3C8B8ABC02B2F4A4D7086 /* Check Pods Manifest.lock */ = {
+		A96A828B723440D89CAE9540 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoltinSwiftExample/Pods-MoltinSwiftExample-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BCFA5F35014F7907A85EF47A /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,34 +269,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		8C3ADD75E2752D138339F64C /* Embed Pods Frameworks */ = {
+		C7984EEE83C8C19EBE66A205 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		984084574162899564F77DEF /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MoltinSwiftExample/Pods-MoltinSwiftExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -345,8 +348,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -390,8 +395,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -410,14 +417,16 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
 		BAB1D41E1B7F6D9E000F07A1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 71230C33033D5E156D2CE96B /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 8C788A53F21ECC575E53E53F /* Pods-MoltinSwiftExample.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MoltinSwiftExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
@@ -425,13 +434,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moltin.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MoltinSwiftExample/Project-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		BAB1D41F1B7F6D9E000F07A1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 325A32BB88BC1E472AE5CE6B /* Pods.release.xcconfig */;
+			baseConfigurationReference = 52363A3DAD62B5E9E3126802 /* Pods-MoltinSwiftExample.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MoltinSwiftExample/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
@@ -439,6 +450,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moltin.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "MoltinSwiftExample/Project-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

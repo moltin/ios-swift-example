@@ -12,21 +12,21 @@ import SwiftSpinner
 
 class ProductListTableViewController: UITableViewController {
     
-    private let CELL_REUSE_IDENTIFIER = "ProductCell"
+    fileprivate let CELL_REUSE_IDENTIFIER = "ProductCell"
     
-    private let LOAD_MORE_CELL_IDENTIFIER = "ProductsLoadMoreCell"
+    fileprivate let LOAD_MORE_CELL_IDENTIFIER = "ProductsLoadMoreCell"
     
-    private let PRODUCT_DETAIL_VIEW_SEGUE_IDENTIFIER = "productDetailSegue"
+    fileprivate let PRODUCT_DETAIL_VIEW_SEGUE_IDENTIFIER = "productDetailSegue"
     
-    private var products:NSMutableArray = NSMutableArray()
+    fileprivate var products:NSMutableArray = NSMutableArray()
     
-    private var paginationOffset:Int = 0
+    fileprivate var paginationOffset:Int = 0
     
-    private var showLoadMore:Bool = true
+    fileprivate var showLoadMore:Bool = true
     
-    private let PAGINATION_LIMIT:Int = 3
+    fileprivate let PAGINATION_LIMIT:Int = 3
     
-    private var selectedProductDict:NSDictionary?
+    fileprivate var selectedProductDict:NSDictionary?
     
     var collectionId:String?
 
@@ -37,7 +37,7 @@ class ProductListTableViewController: UITableViewController {
         
     }
     
-    private func loadProducts(showLoadingAnimation: Bool){
+    fileprivate func loadProducts(_ showLoadingAnimation: Bool){
         assert(collectionId != nil, "Collection ID is required!")
         
         // Load in the next set of products...
@@ -48,27 +48,27 @@ class ProductListTableViewController: UITableViewController {
         }
         
         
-        Moltin.sharedInstance().product.listingWithParameters(["collection": collectionId!, "limit": NSNumber(integer: PAGINATION_LIMIT), "offset": paginationOffset], success: { (response) -> Void in
+        Moltin.sharedInstance().product.listing(withParameters: ["collection": collectionId!, "limit": NSNumber(value: PAGINATION_LIMIT), "offset": paginationOffset], success: { (response) -> Void in
             // Let's use this response!
             SwiftSpinner.hide()
             
             
-            if let newProducts:NSArray = response["result"] as? NSArray {
-                self.products.addObjectsFromArray(newProducts as [AnyObject])
+            if let newProducts:NSArray = response?["result"] as? NSArray {
+                self.products.addObjects(from: newProducts as [AnyObject])
                 
             }
             
             
-            let responseDictionary = response as NSDictionary
+            let responseDictionary = NSDictionary(dictionary: response!)
             
-            if let newOffset:NSNumber = responseDictionary.valueForKeyPath("pagination.offsets.next") as? NSNumber {
-                self.paginationOffset = newOffset.integerValue
+            if let newOffset:NSNumber = responseDictionary.value(forKeyPath: "pagination.offsets.next") as? NSNumber {
+                self.paginationOffset = newOffset.intValue
                 
             }
             
-            if let totalProducts:NSNumber = responseDictionary.valueForKeyPath("pagination.total") as? NSNumber {
+            if let totalProducts:NSNumber = responseDictionary.value(forKeyPath: "pagination.total") as? NSNumber {
                 // If we have all the products already, don't show the 'load more' button!
-                if totalProducts.integerValue >= self.products.count {
+                if totalProducts.intValue >= self.products.count {
                     self.showLoadMore = false
                 }
                 
@@ -95,12 +95,12 @@ class ProductListTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // Return the number of sections.
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         
         if showLoadMore {
@@ -110,30 +110,30 @@ class ProductListTableViewController: UITableViewController {
         return products.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if (showLoadMore && indexPath.row > (products.count - 1)) {
+        if (showLoadMore && (indexPath as NSIndexPath).row > (products.count - 1)) {
             // it's the last item - show a 'Load more' cell for pagination instead.
-            let cell = tableView.dequeueReusableCellWithIdentifier(LOAD_MORE_CELL_IDENTIFIER, forIndexPath: indexPath) as! ProductsLoadMoreTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: LOAD_MORE_CELL_IDENTIFIER, for: indexPath) as! ProductsLoadMoreTableViewCell
 
             return cell
         }
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(CELL_REUSE_IDENTIFIER, forIndexPath: indexPath) as! ProductsListTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: CELL_REUSE_IDENTIFIER, for: indexPath) as! ProductsListTableViewCell
         
-        let row = indexPath.row
+        let row = (indexPath as NSIndexPath).row
         
-        let product:NSDictionary = products.objectAtIndex(row) as! NSDictionary
+        let product:NSDictionary = products.object(at: row) as! NSDictionary
         
         cell.configureWithProduct(product)
 
         return cell
     }
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
-        if (showLoadMore && indexPath.row > (products.count - 1)) {
+        if (showLoadMore && (indexPath as NSIndexPath).row > (products.count - 1)) {
             // Load more products!
             loadProducts(false)
             return
@@ -141,24 +141,24 @@ class ProductListTableViewController: UITableViewController {
         
         
         // Push a product detail view controller for the selected product.
-        let product:NSDictionary = products.objectAtIndex(indexPath.row) as! NSDictionary
+        let product:NSDictionary = products.object(at: (indexPath as NSIndexPath).row) as! NSDictionary
         selectedProductDict = product
         
-        performSegueWithIdentifier(PRODUCT_DETAIL_VIEW_SEGUE_IDENTIFIER, sender: self)
+        performSegue(withIdentifier: PRODUCT_DETAIL_VIEW_SEGUE_IDENTIFIER, sender: self)
         
     }
     
-    override func tableView(_tableView: UITableView,
-        willDisplayCell cell: UITableViewCell,
-        forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ _tableView: UITableView,
+        willDisplay cell: UITableViewCell,
+        forRowAt indexPath: IndexPath) {
             
-            if cell.respondsToSelector("setSeparatorInset:") {
-                cell.separatorInset = UIEdgeInsetsZero
+            if cell.responds(to: #selector(setter: UITableViewCell.separatorInset)) {
+                cell.separatorInset = UIEdgeInsets.zero
             }
-            if cell.respondsToSelector("setLayoutMargins:") {
-                cell.layoutMargins = UIEdgeInsetsZero
+            if cell.responds(to: #selector(setter: UIView.layoutMargins)) {
+                cell.layoutMargins = UIEdgeInsets.zero
             }
-            if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
+            if cell.responds(to: #selector(setter: UIView.preservesSuperviewLayoutMargins)) {
                 cell.preservesSuperviewLayoutMargins = false
             }
     }
@@ -166,15 +166,15 @@ class ProductListTableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         
         if segue.identifier == PRODUCT_DETAIL_VIEW_SEGUE_IDENTIFIER {
             // Set up product detail view
-            let newViewController = segue.destinationViewController as! ProductDetailViewController
+            let newViewController = segue.destination as! ProductDetailViewController
             
-            newViewController.title = selectedProductDict!.valueForKey("title") as? String
+            newViewController.title = selectedProductDict!.value(forKey: "title") as? String
             newViewController.productDict = selectedProductDict
             
         }

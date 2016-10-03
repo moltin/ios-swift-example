@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CartTableViewCellDelegate {
-    func cartTableViewCellSetQuantity(cell: CartTableViewCell, quantity: Int)
+    func cartTableViewCellSetQuantity(_ cell: CartTableViewCell, quantity: Int)
 }
 
 class CartTableViewCell: UITableViewCell {
@@ -44,20 +44,20 @@ class CartTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    func setItemDictionary(itemDict: NSDictionary) {
+    func setItemDictionary(_ itemDict: NSDictionary) {
         
-        itemTitleLabel?.text = itemDict.valueForKey("title") as? String
+        itemTitleLabel?.text = itemDict.value(forKey: "title") as? String
         
-        itemPriceLabel?.text = itemDict.valueForKeyPath("totals.post_discount.formatted.with_tax") as? String
+        itemPriceLabel?.text = itemDict.value(forKeyPath: "totals.post_discount.formatted.with_tax") as? String
         
-        if let qty:NSNumber = itemDict.valueForKeyPath("quantity") as? NSNumber {
-            _ = "Qty. \(qty.integerValue)"
+        if let qty:NSNumber = itemDict.value(forKeyPath: "quantity") as? NSNumber {
+            _ = "Qty. \(qty.intValue)"
             self.itemQuantityStepper?.value = qty.doubleValue
         }
         
@@ -65,24 +65,24 @@ class CartTableViewCell: UITableViewCell {
         
         var imageUrl = ""
         
-        if let images = itemDict.objectForKey("images") as? NSArray {
+        if let images = itemDict.object(forKey: "images") as? NSArray {
             if (images.firstObject != nil) {
-                imageUrl = images.firstObject?.valueForKeyPath("url.https") as! String
+                imageUrl = (images.firstObject as AnyObject).value(forKeyPath: "url.https") as! String
             }
             
         }
         
-        itemImageView?.sd_setImageWithURL(NSURL(string: imageUrl))
+        itemImageView?.sd_setImage(with: URL(string: imageUrl))
     }
     
-    @IBAction func stepperValueChanged(sender: AnyObject){
+    @IBAction func stepperValueChanged(_ sender: AnyObject){
         let value = Int(itemQuantityStepper!.value)
         
         setItemQuantity(value)
         
     }
     
-    func setItemQuantity(quantity: Int) {
+    func setItemQuantity(_ quantity: Int) {
         let itemQuantityText = "Qty. \(quantity)"
         itemQuantityLabel?.text = itemQuantityText
         

@@ -20,27 +20,27 @@ class CollectionTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    func setCollectionDictionary(dict: NSDictionary) {
+    func setCollectionDictionary(_ dict: NSDictionary) {
         // Set up the cell based on the values of the dictionary that we've been passed
         
-        collectionLabel?.text = dict.valueForKey("title") as? String
+        collectionLabel?.text = dict.value(forKey: "title") as? String
     
         // Extract image URL and set that too...
         var imageUrl = ""
         
-        if let images = dict.valueForKey("images") as? NSArray {
+        if let images = dict.value(forKey: "images") as? NSArray {
             if (images.firstObject != nil) {
-                imageUrl = images.firstObject?.valueForKeyPath("url.https") as! String
+                imageUrl = (images.firstObject as AnyObject).value(forKeyPath: "url.https") as! String
             }
         }
         
-        collectionImage?.sd_setImageWithURL(NSURL(string: imageUrl))
+        collectionImage?.sd_setImage(with: URL(string: imageUrl))
         
         
     }

@@ -12,16 +12,16 @@ import SwiftSpinner
 
 class CartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CartTableViewCellDelegate {
     
-    private let CART_CELL_REUSE_IDENTIFIER = "CartTableViewCell"
+    fileprivate let CART_CELL_REUSE_IDENTIFIER = "CartTableViewCell"
     
     @IBOutlet weak var tableView:UITableView?
     @IBOutlet weak var totalLabel:UILabel?
     @IBOutlet weak var checkoutButton:UIButton?
     
-    private var cartData:NSDictionary?
-    private var cartProducts:NSDictionary?
+    fileprivate var cartData:NSDictionary?
+    fileprivate var cartProducts:NSDictionary?
     
-    private let BILLING_ADDRESS_SEGUE_IDENTIFIER = "showBillingAddress"
+    fileprivate let BILLING_ADDRESS_SEGUE_IDENTIFIER = "showBillingAddress"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +33,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         
@@ -53,13 +53,13 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         Moltin.sharedInstance().cart.getContentsWithsuccess({ (response) -> Void in
             // Got cart contents succesfully!
             // Set local var's
-            self.cartData = response
+            self.cartData = response as NSDictionary?
             //println(self.cartData)
             
-            self.cartProducts = self.cartData?.valueForKeyPath("result.contents") as? NSDictionary
+            self.cartProducts = self.cartData?.value(forKeyPath: "result.contents") as? NSDictionary
             
             // Reset cart total
-            if let cartPriceString:NSString = self.cartData?.valueForKeyPath("result.totals.post_discount.formatted.with_tax") as? NSString {
+            if let cartPriceString:NSString = self.cartData?.value(forKeyPath: "result.totals.post_discount.formatted.with_tax") as? NSString {
                 self.totalLabel?.text = cartPriceString as String
                 
             }
@@ -71,7 +71,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
             SwiftSpinner.hide()
             
             // If there's < 1 product in the cart, disable the checkout button
-            self.checkoutButton?.enabled = (self.cartProducts != nil && self.cartProducts?.count > 0)
+            self.checkoutButton?.isEnabled = (self.cartProducts != nil && (self.cartProducts?.count)! > 0)
 
             }, failure: { (response, error) -> Void in
                 // Something went wrong; hide loading UI and warn user
@@ -88,11 +88,11 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // MARK: - TableView Data source & Delegate
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (cartProducts != nil) {
             return cartProducts!.allKeys.count
         }
@@ -102,10 +102,10 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(CART_CELL_REUSE_IDENTIFIER, forIndexPath: indexPath) as! CartTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: CART_CELL_REUSE_IDENTIFIER, for: indexPath) as! CartTableViewCell
         
-        let row = indexPath.row
+        let row = (indexPath as NSIndexPath).row
         
         let product:NSDictionary = cartProducts!.allValues[row] as! NSDictionary
         
@@ -121,29 +121,29 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     
-    func tableView(_tableView: UITableView,
-        willDisplayCell cell: UITableViewCell,
-        forRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ _tableView: UITableView,
+        willDisplay cell: UITableViewCell,
+        forRowAt indexPath: IndexPath) {
             
-            if cell.respondsToSelector("setSeparatorInset:") {
-                cell.separatorInset = UIEdgeInsetsZero
+            if cell.responds(to: #selector(setter: UITableViewCell.separatorInset)) {
+                cell.separatorInset = UIEdgeInsets.zero
             }
-            if cell.respondsToSelector("setLayoutMargins:") {
-                cell.layoutMargins = UIEdgeInsetsZero
+            if cell.responds(to: #selector(setter: UIView.layoutMargins)) {
+                cell.layoutMargins = UIEdgeInsets.zero
             }
-            if cell.respondsToSelector("setPreservesSuperviewLayoutMargins:") {
+            if cell.responds(to: #selector(setter: UIView.preservesSuperviewLayoutMargins)) {
                 cell.preservesSuperviewLayoutMargins = false
             }
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if (editingStyle == UITableViewCellEditingStyle.Delete){
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if (editingStyle == UITableViewCellEditingStyle.delete){
             // Remove the item from the cart.
-            removeItemFromCartAtIndex(indexPath.row)
+            removeItemFromCartAtIndex((indexPath as NSIndexPath).row)
         }
     }
     
-    private func removeItemFromCartAtIndex(index: Int) {
+    fileprivate func removeItemFromCartAtIndex(_ index: Int) {
         // Get item ID...
         let selectedProductId = cartProducts!.allKeys[index] as? String
         
@@ -151,7 +151,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
 
         
         // And remove it from the cart...
-        Moltin.sharedInstance().cart.removeItemWithId(selectedProductId, success: { (response) -> Void in
+        Moltin.sharedInstance().cart.removeItem(withId: selectedProductId, success: { (response) -> Void in
             // Completed item removal - refresh cart hide loading UI
             self.refreshCart()
 
@@ -169,7 +169,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     // MARK: - Cell delegate
-    func cartTableViewCellSetQuantity(cell: CartTableViewCell, quantity: Int) {
+    func cartTableViewCellSetQuantity(_ cell: CartTableViewCell, quantity: Int) {
         // The cell's quantity's been updated by the stepper control - tell the Moltin API and refresh the cart too.
         // If quantity is zero, the Moltin API automagically knows to remove the item from the cart
         
@@ -177,7 +177,7 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
         SwiftSpinner.show("Updating quantity")
         
         // Update to new quantity value...
-        Moltin.sharedInstance().cart.updateItemWithId(cell.productId!, parameters: ["quantity": quantity], success: { (response) -> Void in
+        Moltin.sharedInstance().cart.updateItem(withId: cell.productId!, parameters: ["quantity": quantity], success: { (response) -> Void in
             // Update succesful, refresh cart
             self.refreshCart()
 
@@ -197,8 +197,8 @@ class CartViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     // MARK: - Checkout button
-    @IBAction func checkoutButtonClicked(sender: AnyObject) {
-        performSegueWithIdentifier(BILLING_ADDRESS_SEGUE_IDENTIFIER, sender: self)
+    @IBAction func checkoutButtonClicked(_ sender: AnyObject) {
+        performSegue(withIdentifier: BILLING_ADDRESS_SEGUE_IDENTIFIER, sender: self)
     }
     
 }

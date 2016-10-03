@@ -23,26 +23,26 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     
     var countryArray:Array<Dictionary< String, String>>?
     
-    private var useSameShippingAddress = false
+    fileprivate var useSameShippingAddress = false
     
-    private var selectedCountryIndex:Int?
+    fileprivate var selectedCountryIndex:Int?
     
     // Field identifier key constants
-    private let contactEmailFieldIdentifier = "email"
-    private let contactFirstNameFieldIdentifier = "first_name"
-    private let contactLastNameFieldIdentifier = "last_name"
-    private let address1FieldIdentifier = "address_1"
-    private let address2FieldIdentifier = "address_2"
-    private let cityFieldIdentifier = "city"
-    private let stateFieldIdentifier = "state"
-    private let countryFieldIdentifier = "country"
-    private let postcodeFieldIdentifier = "postcode"
+    fileprivate let contactEmailFieldIdentifier = "email"
+    fileprivate let contactFirstNameFieldIdentifier = "first_name"
+    fileprivate let contactLastNameFieldIdentifier = "last_name"
+    fileprivate let address1FieldIdentifier = "address_1"
+    fileprivate let address2FieldIdentifier = "address_2"
+    fileprivate let cityFieldIdentifier = "city"
+    fileprivate let stateFieldIdentifier = "state"
+    fileprivate let countryFieldIdentifier = "country"
+    fileprivate let postcodeFieldIdentifier = "postcode"
     
-    private let countryPickerView = UIPickerView()
+    fileprivate let countryPickerView = UIPickerView()
     
-    private let BILLING_ADDRESS_SHIPPING_SEGUE = "billingShippingSegue"
-    private let SHIPPING_ADDRESS_SHIPPING_SEGUE = "shippingShippingSegue"
-    private let SHIPPING_ADDRESS_SEGUE = "shippingAddressSegue"
+    fileprivate let BILLING_ADDRESS_SHIPPING_SEGUE = "billingShippingSegue"
+    fileprivate let SHIPPING_ADDRESS_SHIPPING_SEGUE = "shippingShippingSegue"
+    fileprivate let SHIPPING_ADDRESS_SEGUE = "shippingAddressSegue"
 
     
     //MARK: - View loading
@@ -67,8 +67,8 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         }
         
         for field in fields {
-            var userPresentableName = field.stringByReplacingOccurrencesOfString("_", withString: " ")
-            userPresentableName = userPresentableName.capitalizedString
+            var userPresentableName = field.replacingOccurrences(of: "_", with: " ")
+            userPresentableName = userPresentableName.capitalized
             
             var fieldDict = Dictionary<String, String>()
             fieldDict["name"] = userPresentableName
@@ -83,10 +83,10 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
             SwiftSpinner.show("Loading countries")
             
             // Fetch countries from Moltin API, showing loading animation whilst this async fetch is happening.
-            Moltin.sharedInstance().address.fieldsWithCustomerId("", andAddressId: "", success: { (response) -> Void in
+            Moltin.sharedInstance().address.fields(withCustomerId: "", andAddressId: "", success: { (response) -> Void in
                 // Got a response, let's extract the countries...
-                let responseDict = response as NSDictionary
-                let tmpCountries = responseDict.valueForKeyPath("result.country.available") as! NSDictionary
+                let responseDict = NSDictionary(dictionary: response!)
+                let tmpCountries = responseDict.value(forKeyPath: "result.country.available") as! NSDictionary
                 
                 self.countryArray = Array<Dictionary< String, String>>()
                 
@@ -95,14 +95,12 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
                     var newCountry = Dictionary<String, String>()
                     if let codeString = countryCode as? String {
                         newCountry["code"] = codeString
-                        newCountry["name"] = (tmpCountries.valueForKey(codeString) as! String)
+                        newCountry["name"] = (tmpCountries.value(forKey: codeString) as! String)
                     }
                     self.countryArray?.append(newCountry)
                 }
                 
-                // Sort alphabetically by country name
-                self.countryArray? = self.countryArray!.sort({ $0["name"] < $1["name"]})
-                
+
                 // and hide loading UI.
                 SwiftSpinner.hide()
 
@@ -119,8 +117,8 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         
         countryPickerView.delegate = self
         countryPickerView.dataSource = self
-        countryPickerView.backgroundColor = UIColor.whiteColor()
-        countryPickerView.opaque = true
+        countryPickerView.backgroundColor = UIColor.white
+        countryPickerView.isOpaque = true
 
         // Load table data
         self.tableView.reloadData()
@@ -129,12 +127,12 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
 
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // Return the number of sections.
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         
         if !isShippingAddress {
@@ -144,18 +142,18 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         return (contactFieldsArray.count + 1)
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if ((indexPath.row == contactFieldsArray.count && isShippingAddress) || (indexPath.row == contactFieldsArray.count + 1 && !isShippingAddress)) {
+        if (((indexPath as NSIndexPath).row == contactFieldsArray.count && isShippingAddress) || ((indexPath as NSIndexPath).row == contactFieldsArray.count + 1 && !isShippingAddress)) {
             // Show Continue button cell!
-            let cell = tableView.dequeueReusableCellWithIdentifier(CONTINUE_BUTTON_CELL_IDENTIFIER, forIndexPath: indexPath) as! ContinueButtonTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: CONTINUE_BUTTON_CELL_IDENTIFIER, for: indexPath) as! ContinueButtonTableViewCell
             return cell
 
         }
         
-        if (indexPath.row == contactFieldsArray.count && !isShippingAddress) {
+        if ((indexPath as NSIndexPath).row == contactFieldsArray.count && !isShippingAddress) {
             // Show Switch cell
-            let cell = tableView.dequeueReusableCellWithIdentifier(SWITCH_TABLE_CELL_REUSE_IDENTIFIER, forIndexPath: indexPath) as! SwitchTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: SWITCH_TABLE_CELL_REUSE_IDENTIFIER, for: indexPath) as! SwitchTableViewCell
             cell.switchLabel?.text = "Shipping address same as billing?"
             cell.switchLabel?.tintColor = MOLTIN_COLOR
             cell.delegate = self
@@ -163,15 +161,15 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
             
         }
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(TEXT_ENTRY_CELL_REUSE_IDENTIFIER, forIndexPath: indexPath) as! TextEntryTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: TEXT_ENTRY_CELL_REUSE_IDENTIFIER, for: indexPath) as! TextEntryTableViewCell
         
         // Configure the cell...
-        cell.textField?.placeholder = contactFieldsArray[indexPath.row]["name"]!
-        let identifier = contactFieldsArray[indexPath.row]["identifier"]!
+        cell.textField?.placeholder = contactFieldsArray[(indexPath as NSIndexPath).row]["name"]!
+        let identifier = contactFieldsArray[(indexPath as NSIndexPath).row]["identifier"]!
         cell.cellId = identifier
         cell.delegate = self
         
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         
         
         if identifier == countryFieldIdentifier {
@@ -198,11 +196,11 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     }
     
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
         // If the user tapped on the Continue button, continue!
-        if ((indexPath.row == contactFieldsArray.count && isShippingAddress) || (indexPath.row == contactFieldsArray.count + 1 && !isShippingAddress)) {
+        if (((indexPath as NSIndexPath).row == contactFieldsArray.count && isShippingAddress) || ((indexPath as NSIndexPath).row == contactFieldsArray.count + 1 && !isShippingAddress)) {
             continueButtonTapped()
             return
         }
@@ -210,22 +208,22 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     }
     
     //MARK: - Country picker delegate and data source
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
 
         
         return countryArray!.count
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
 
         return countryArray![row]["name"]
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         // User's set a country.
         selectedCountryIndex = row
         
@@ -287,8 +285,8 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
                 // Warn user!
                 valid = false
                 
-                var userPresentableName = field.stringByReplacingOccurrencesOfString("_", withString: " ")
-                userPresentableName = userPresentableName.capitalizedString
+                var userPresentableName = field.replacingOccurrences(of: "_", with: " ")
+                userPresentableName = userPresentableName.capitalized
                 
                 AlertDialog.showAlert("Error", message: "\(userPresentableName) is not present", viewController: self)
             }
@@ -344,7 +342,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     }
     
     //MARK: - Text field Cell Delegate
-    func textEnteredInCell(cell: TextEntryTableViewCell, cellId:String, text: String) {
+    func textEnteredInCell(_ cell: TextEntryTableViewCell, cellId:String, text: String) {
         let cellId = cell.cellId!
         
         if cellId == contactEmailFieldIdentifier {
@@ -360,14 +358,14 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     }
     
     //MARK: - Switch Cell Delegate
-    func switchCellSwitched(cell: SwitchTableViewCell, status: Bool) {
+    func switchCellSwitched(_ cell: SwitchTableViewCell, status: Bool) {
         // User has selected to use the same shipping address as billing address.
         useSameShippingAddress = status
         
     }
     
     //MARK: - Continue Button
-    private func continueButtonTapped() {
+    fileprivate func continueButtonTapped() {
         // If this is the billing address screen, see if the user wants to enter a seperate shipping address...
         // If they do, transition to the shipping address entry screen
         // If they don't - or this is the shipping address screen - carry on with the order...
@@ -379,13 +377,13 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         }
 
         if isShippingAddress {
-            performSegueWithIdentifier(SHIPPING_ADDRESS_SHIPPING_SEGUE, sender: self)
+            performSegue(withIdentifier: SHIPPING_ADDRESS_SHIPPING_SEGUE, sender: self)
         } else {
             if useSameShippingAddress {
                 // They wanna use the current billing address as the shipping address too, so we need to segue to the shipping method choice view, since we know all details now.
-                performSegueWithIdentifier(BILLING_ADDRESS_SHIPPING_SEGUE, sender: self)
+                performSegue(withIdentifier: BILLING_ADDRESS_SHIPPING_SEGUE, sender: self)
             } else {
-                performSegueWithIdentifier(SHIPPING_ADDRESS_SEGUE, sender: self)
+                performSegue(withIdentifier: SHIPPING_ADDRESS_SEGUE, sender: self)
 
             }
             
@@ -400,7 +398,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         
@@ -425,7 +423,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         
         if segue.identifier == SHIPPING_ADDRESS_SHIPPING_SEGUE || segue.identifier == BILLING_ADDRESS_SHIPPING_SEGUE {
             // Set up the shipping address view's address variables...
-            let newViewController = segue.destinationViewController as! ShippingTableViewController
+            let newViewController = segue.destination as! ShippingTableViewController
             newViewController.billingDictionary = billingDict
             newViewController.shippingDictionary = shippingDict
             
@@ -436,7 +434,7 @@ class AddressEntryTableViewController: UITableViewController, UIPickerViewDelega
         
         if segue.identifier == SHIPPING_ADDRESS_SEGUE {
             // We're seguing to another AddressEntryTableViewController instance, let's let it know that it's for shipping address entry, and that it has a billing address already...
-            let newViewController = segue.destinationViewController as! AddressEntryTableViewController
+            let newViewController = segue.destination as! AddressEntryTableViewController
             newViewController.isShippingAddress = true
             newViewController.billingDictionary = billingDict
             newViewController.countryArray = countryArray!

@@ -12,7 +12,7 @@ let TEXT_ENTRY_CELL_REUSE_IDENTIFIER = "textEntryCell"
 
 
 protocol TextEntryTableViewCellDelegate {
-    func textEnteredInCell(cell: TextEntryTableViewCell, cellId:String, text: String)
+    func textEnteredInCell(_ cell: TextEntryTableViewCell, cellId:String, text: String)
 }
 
 class TextEntryTableViewCell: UITableViewCell {
@@ -29,13 +29,13 @@ class TextEntryTableViewCell: UITableViewCell {
 
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
     
-    @IBAction func textFieldDidEndEditing(textField: UITextField) {
+    @IBAction func textFieldDidEndEditing(_ textField: UITextField) {
         if delegate != nil {
             delegate!.textEnteredInCell(self, cellId: cellId!, text: textField.text!)
         }
@@ -44,7 +44,7 @@ class TextEntryTableViewCell: UITableViewCell {
     
     func hideCursor() {
         // Set the cursor colour to white in the text field to 'hide' it.
-        textField?.tintColor = UIColor.clearColor()
+        textField?.tintColor = UIColor.clear
     }
     
 

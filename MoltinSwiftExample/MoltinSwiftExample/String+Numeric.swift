@@ -11,11 +11,11 @@ import Foundation
 extension String {
     func isNumericString() -> Bool {
         
-        let nonDigitChars = NSCharacterSet.decimalDigitCharacterSet().invertedSet
+        let nonDigitChars = CharacterSet.decimalDigits.inverted
         
         let string = self as NSString
         
-        if string.rangeOfCharacterFromSet(nonDigitChars).location == NSNotFound {
+        if string.rangeOfCharacter(from: nonDigitChars).location == NSNotFound {
             // definitely numeric entierly
             return true
         }

@@ -13,28 +13,28 @@ import SwiftSpinner
 class PaymentViewController: UITableViewController, TextEntryTableViewCellDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
     // Replace this constant with your store's payment gateway slug
-    private let PAYMENT_GATEWAY = "dummy"
+    fileprivate let PAYMENT_GATEWAY = "dummy"
     
-    private let PAYMENT_METHOD = "purchase"
+    fileprivate let PAYMENT_METHOD = "purchase"
     
     // It needs some pass-through variables too...
     var emailAddress:String?
     var billingDictionary:Dictionary<String, String>?
     var shippingDictionary:Dictionary<String, String>?
     var selectedShippingMethodSlug:String?
-    private var cardNumber:String?
-    private var cvvNumber:String?
-    private var selectedMonth:String?
-    private var selectedYear:String?
+    fileprivate var cardNumber:String?
+    fileprivate var cvvNumber:String?
+    fileprivate var selectedMonth:String?
+    fileprivate var selectedYear:String?
     
-    private let CONTINUE_CELL_ROW_INDEX = 3
+    fileprivate let CONTINUE_CELL_ROW_INDEX = 3
     
-    private let cardNumberIdentifier = "cardNumber"
-    private let cvvNumberIdentifier = "cvvNumber"
+    fileprivate let cardNumberIdentifier = "cardNumber"
+    fileprivate let cvvNumberIdentifier = "cvvNumber"
     
-    private let datePicker = UIPickerView()
-    private var monthsArray = Array<Int>()
-    private var yearsArray = Array<String>()
+    fileprivate let datePicker = UIPickerView()
+    fileprivate var monthsArray = Array<Int>()
+    fileprivate var yearsArray = Array<String>()
     
     // Validation constants
     // Apparently, no credit cards have under 12 or over 19 digits... http://validcreditcardnumbers.info/?p=9
@@ -48,8 +48,8 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
         
         datePicker.delegate = self
         datePicker.dataSource = self
-        datePicker.backgroundColor = UIColor.whiteColor()
-        datePicker.opaque = true
+        datePicker.backgroundColor = UIColor.white
+        datePicker.isOpaque = true
         
         // Populate months
         for i in 1...12 {
@@ -57,10 +57,10 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
         }
         
         // Populate years
-        let components = NSCalendar.currentCalendar().components(NSCalendarUnit.Year, fromDate: NSDate())
+        let components = (Calendar.current as NSCalendar).components(NSCalendar.Unit.year, from: Date())
         let currentYear = components.year
-        let currentShortYear = (NSString(format: "%d", currentYear).substringFromIndex(2) as NSString)
-        selectedYear = String(format: "%d", currentYear)
+        let currentShortYear = (NSString(format: "%d", currentYear!).substring(from: 2) as NSString)
+        selectedYear = String(format: "%d", currentYear!)
 
         let shortYearNumber = currentShortYear.intValue
         let maxYear = shortYearNumber + 5
@@ -71,7 +71,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
              
     }
     
-    private func jumpToCartView(presentSuccess: Bool) {
+    fileprivate func jumpToCartView(_ presentSuccess: Bool) {
         for controller in self.navigationController!.viewControllers {
             if controller is CartViewController {
                 self.navigationController!.popToViewController(controller , animated: true)
@@ -91,36 +91,36 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
     
     // MARK: - Table view data source
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         // Return the number of sections.
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
         return 4
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row == CONTINUE_CELL_ROW_INDEX {
-            let cell = tableView.dequeueReusableCellWithIdentifier(CONTINUE_BUTTON_CELL_IDENTIFIER, forIndexPath: indexPath) as! ContinueButtonTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath as NSIndexPath).row == CONTINUE_CELL_ROW_INDEX {
+            let cell = tableView.dequeueReusableCell(withIdentifier: CONTINUE_BUTTON_CELL_IDENTIFIER, for: indexPath) as! ContinueButtonTableViewCell
             
             return cell
         }
         
-        let cell = tableView.dequeueReusableCellWithIdentifier(TEXT_ENTRY_CELL_REUSE_IDENTIFIER, forIndexPath: indexPath) as! TextEntryTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: TEXT_ENTRY_CELL_REUSE_IDENTIFIER, for: indexPath) as! TextEntryTableViewCell
         
         // Configure the cell...
         
-        switch (indexPath.row) {
+        switch ((indexPath as NSIndexPath).row) {
         case 0:
             cell.textField?.placeholder = "Card number"
-            cell.textField?.keyboardType = UIKeyboardType.NumberPad
+            cell.textField?.keyboardType = UIKeyboardType.numberPad
             cell.cellId = cardNumberIdentifier
             cell.textField?.text = cardNumber
         case 1:
             cell.textField?.placeholder = "CVV number"
-            cell.textField?.keyboardType = UIKeyboardType.NumberPad
+            cell.textField?.keyboardType = UIKeyboardType.numberPad
             cell.cellId = cvvNumberIdentifier
             cell.textField?.text = cvvNumber
         case 2:
@@ -132,7 +132,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
             
             if (selectedYear != nil) && (selectedMonth != nil) {
                 let shortYearNumber = (selectedYear! as NSString).intValue
-                let shortYear = (NSString(format: "%d", shortYearNumber).substringFromIndex(2) as NSString)
+                let shortYear = (NSString(format: "%d", shortYearNumber).substring(from: 2) as NSString)
                 let formattedDate = String(format: "%@/%@", selectedMonth!, shortYear)
                 cell.textField?.text = formattedDate
             }
@@ -143,16 +143,16 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
             
         }
         
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         cell.delegate = self
         
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         
-        if indexPath.row == CONTINUE_CELL_ROW_INDEX {
+        if (indexPath as NSIndexPath).row == CONTINUE_CELL_ROW_INDEX {
             // Pay! (after a little validation)
             
             if validateData() {
@@ -163,7 +163,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
     }
     
     //MARK: - Text field Cell Delegate
-    func textEnteredInCell(cell: TextEntryTableViewCell, cellId:String, text: String) {
+    func textEnteredInCell(_ cell: TextEntryTableViewCell, cellId:String, text: String) {
         let cellId = cell.cellId!
         
         if cellId == cardNumberIdentifier {
@@ -178,11 +178,11 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
     
     
     //MARK: - Date picker delegate and data source
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
         if component == 0 {
             return monthsArray.count
@@ -193,7 +193,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
         }
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if component == 0 {
             return String(format: "%d", monthsArray[row])
@@ -205,7 +205,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
         
     }
     
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         if component == 0 {
             // Month selected
@@ -222,7 +222,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
     }
     
     // MARK: - Data validation
-    private func validateData() -> Bool {
+    fileprivate func validateData() -> Bool {
         // Check CVV is all numeric, and < max length
         if cvvNumber == nil || !cvvNumber!.isNumericString() || (cvvNumber!).characters.count > MAX_CVV_LENGTH {
             AlertDialog.showAlert("Invalid CVV Number", message: "Please check the CVV number you entered and try again.", viewController: self)
@@ -241,7 +241,7 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
     }
     
     // MARK: - Moltin Order API
-    private func completeOrder() {
+    fileprivate func completeOrder() {
         
         // Show some loading UI...
         SwiftSpinner.show("Completing Purchase")
@@ -257,23 +257,23 @@ class PaymentViewController: UITableViewController, TextEntryTableViewCellDelega
             "gateway": PAYMENT_GATEWAY,
             "bill_to": self.billingDictionary!,
             "ship_to": self.shippingDictionary!
-            ] as [NSObject: AnyObject]
+            ] as [AnyHashable: Any]
         
-        Moltin.sharedInstance().cart.orderWithParameters(orderParameters, success: { (response) -> Void in
+        Moltin.sharedInstance().cart.order(withParameters: orderParameters, success: { (response) -> Void in
             // Order succesful
             print("Order succeeded: \(response)")
             
             // Extract the Order ID so that it can be used in payment too...
-            let orderId = (response as NSDictionary).valueForKeyPath("result.id") as! String
+            let orderId = NSDictionary(dictionary: response!).value(forKeyPath: "result.id") as! String
             print("Order ID: \(orderId)")
 
             let paymentParameters = ["data": ["number": self.cardNumber!,
                 "expiry_month": self.selectedMonth!,
                 "expiry_year":  self.selectedYear!,
                 "cvv":          self.cvvNumber!
-                ]] as [NSObject: AnyObject]
+                ]] as [AnyHashable: Any]
             
-            Moltin.sharedInstance().checkout.paymentWithMethod(self.PAYMENT_METHOD, order: orderId, parameters: paymentParameters, success: { (response) -> Void in
+            Moltin.sharedInstance().checkout.payment(withMethod: self.PAYMENT_METHOD, order: orderId, parameters: paymentParameters, success: { (response) -> Void in
                 // Payment successful...
                 print("Payment successful: \(response)")
             
