@@ -8,7 +8,6 @@
 
 import UIKit
 import Moltin
-import SwiftSpinner
 
 class CartViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CartTableViewCellDelegate {
     

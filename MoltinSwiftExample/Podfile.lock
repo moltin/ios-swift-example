@@ -19,12 +19,10 @@ PODS:
   - SDWebImage (3.8.2):
     - SDWebImage/Core (= 3.8.2)
   - SDWebImage/Core (3.8.2)
-  - SwiftSpinner (1.0.2)
 
 DEPENDENCIES:
   - Moltin (from `https://github.com/moltin/ios-sdk.git`, branch `master`)
   - SDWebImage (~> 3.7)
-  - SwiftSpinner (~> 1.0.2)
 
 EXTERNAL SOURCES:
   Moltin:
@@ -40,8 +38,7 @@ SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   Moltin: 80fe95499216cf783c183bc56352b6b92a3e4836
   SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
-  SwiftSpinner: 1c80ff6ea1c47e2faa1dfce0fcd5e6b39a47fd51
 
-PODFILE CHECKSUM: 2d287c4f594e05ec636abb82a0f9d10f1fb85d19
+PODFILE CHECKSUM: 010974f7069915d86f84f0fdfdb9711270bda919
 
 COCOAPODS: 1.0.0

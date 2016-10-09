@@ -8,7 +8,6 @@
 
 import UIKit
 import Moltin
-import SwiftSpinner
 
 class AddressEntryTableViewController: UITableViewController, UIPickerViewDelegate, UIPickerViewDataSource, SwitchTableViewCellDelegate, TextEntryTableViewCellDelegate {
     

@@ -8,7 +8,6 @@
 
 import UIKit
 import Moltin
-import SwiftSpinner
 
 class PaymentViewController: UITableViewController, TextEntryTableViewCellDelegate, UIPickerViewDataSource, UIPickerViewDelegate {
     
