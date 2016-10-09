@@ -67,7 +67,7 @@ class CartTableViewCell: UITableViewCell {
         
         if let images = itemDict.object(forKey: "images") as? NSArray {
             if (images.firstObject != nil) {
-                imageUrl = (images.firstObject as AnyObject).value(forKeyPath: "url.https") as! String
+                imageUrl = (images.firstObject as! NSDictionary).value(forKeyPath: "url.https") as! String
             }
             
         }
